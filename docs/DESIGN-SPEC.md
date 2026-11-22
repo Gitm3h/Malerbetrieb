@@ -280,9 +280,9 @@ Featured sample board:
 ### 3.9 Footer and Impressum
 
 - Footer petrol ink, chalk/70 text. Wordmark, one-sentence description, phone.
-- Columns: Einzugsgebiet (Altona, Ottensen, Bahrenfeld, Othmarschen, Nienstedten), Schnellzugriff, Impressum & Datenschutz.
+- Columns: Einzugsgebiet (Altona, Ottensen, Bahrenfeld, Othmarschen, Nienstedten), Schnellzugriff (including Projekt), Impressum & Datenschutz.
 - No all-caps column headings; Karla 600, sentence case.
-- Bottom bar: copyright and “Impressum & Datenschutz”.
+- Bottom bar: “© 2026 Malerbetrieb Schmidt · Portfolio-Demo · fiktives Unternehmen.” and “Impressum & Datenschutz”.
 - Impressum modal contains both Impressum and Datenschutz sections. It inherits the new tokens, keeps Escape, backdrop click, body scroll lock, and the close button; focus trapping and returning focus to the opener are required.
 
 ---
@@ -538,7 +538,7 @@ Definition of done: all acceptance criteria in sections 9–10 pass; the wave mo
 - Repository: `https://github.com/Gitm3h/Malerbetrieb`.
 - Workflow `.github/workflows/publish.yml` runs on every push to `main`.
 - It builds with `npm ci && npm run build` and force-pushes the output to an orphan `gh-pages` branch.
-- It then attempts to set GitHub Pages source to `gh-pages` / root via `PUT /repos/{owner}/{repo}/pages`. If the token cannot change settings, the step warns and the manual setting remains.
+- It then attempts to set GitHub Pages source to `gh-pages` / root via `PUT /repos/{owner}/{repo}/pages` and requests a new Pages build via `POST /repos/{owner}/{repo}/pages/builds`. If the token cannot change settings, the step warns and the manual setting remains.
 - It does not push local changes. A local commit must be pushed to `main` first.
 - `vite.config.js` uses `base: './'` so both BrewPage root and the GitHub Pages project subpath load assets.
-- GitHub Pages must be set once to `gh-pages` / root. Expected URL: `https://gitm3h.github.io/Malerbetrieb/`.
+- GitHub Pages still needs the one-time `gh-pages` / root source switch if the workflow's settings call is rejected. Expected URL: `https://gitm3h.github.io/Malerbetrieb/`.
