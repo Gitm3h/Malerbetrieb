@@ -57,7 +57,8 @@ jobs:
                 build_type: 'legacy',
                 source: { branch: 'gh-pages', path: '/' },
               })
-              core.info('GitHub Pages source set to gh-pages/root.')
+              await github.request('POST /repos/{owner}/{repo}/pages/builds', { owner, repo })
+              core.info('GitHub Pages source set to gh-pages/root and a build was requested.')
             } catch (error) {
               core.warning(`Could not set Pages source automatically: ${error.message}`)
             }
