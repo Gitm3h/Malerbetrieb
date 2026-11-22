@@ -288,7 +288,7 @@ Featured sample board:
 
 ### 3.10 Footer and Impressum
 
-- Footer petrol ink, chalk/70 text. Wordmark, one-sentence description, phone.
+- Footer petrol ink, chalk/70 text. Mirrored cascade at the top edge; content starts below it. Wordmark, one-sentence description, phone.
 - Columns: Einzugsgebiet (Altona, Ottensen, Bahrenfeld, Othmarschen, Nienstedten), Schnellzugriff (including Projekt), Impressum & Datenschutz.
 - No all-caps column headings; Karla 600, sentence case.
 - Bottom bar: “© 2026 Malerbetrieb Schmidt · Portfolio-Demo · fiktives Unternehmen.” and “Impressum & Datenschutz”.
@@ -296,7 +296,7 @@ Featured sample board:
 
 ---
 
-## 4. Moving color split (hero wave)
+## 4. Moving color split (hero + footer wave)
 
 ### 4.1 Visual
 
@@ -328,6 +328,13 @@ Height: `clamp(72px, 10vw, 160px)`. The layers overlap so the colors read as a c
 - `will-change: transform` on the three animated wrappers only, removed when paused.
 - The wave container is `aria-hidden="true"` and `pointer-events: none`.
 - Target: no frame drops on a 2019-era laptop at 1440×900; no long tasks during page load from the wave.
+
+### 4.4 Footer mirror
+
+- The footer repeats the same master curve and 30s drift at the top edge, vertically inverted.
+- Filled area sits above the wave line: pale front, mid behind, deep back, then ink below.
+- Height `clamp(90px, 10vw, 150px)`. A short chalk-to-transparent top gradient blends into the previous section.
+- Same pause-on-offscreen and reduced-motion rules. No second independent motion system.
 
 ---
 

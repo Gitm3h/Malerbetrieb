@@ -63,6 +63,7 @@ The AI did not invent a real client, a real project, or real testimonials. The s
 - Horizontally scrollable review strip with hidden scrollbar and auto-scroll.
 - Fictional awards strip that drifts opposite the reviews, with native horizontal scroll and hover pause.
 - Link/scroll speed-streak effect, disabled for reduced motion.
+- Mirrored animated footer wave matching the hero cascade.
 - Mobile navigation sheet with focus trap.
 - Impressum/Datenschutz modal with focus trap.
 - Client-side validation and a simulated success state.

@@ -1,3 +1,5 @@
+import AnimatedWave from './AnimatedWave'
+
 const serviceAreas = ['Altona', 'Ottensen', 'Bahrenfeld', 'Othmarschen', 'Nienstedten']
 
 const links = [
@@ -10,8 +12,9 @@ const links = [
 
 export default function Footer({ onImpressum }) {
   return (
-    <footer className="on-dark bg-ink text-chalk/70" aria-label="Seitenfuß">
-      <div className="container-main py-12 lg:py-16">
+    <footer className="on-dark relative overflow-hidden bg-ink text-chalk/70" aria-label="Seitenfuß">
+      <AnimatedWave variant="footer" />
+      <div className="container-main pb-12 pt-32 sm:pt-36 lg:pb-16 lg:pt-40">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2.5">

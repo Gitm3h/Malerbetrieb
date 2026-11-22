@@ -14,7 +14,7 @@ function waveY(x) {
   )
 }
 
-function buildWavePath(layer) {
+function buildWavePath(layer, inverted = false) {
   const points = []
 
   for (let i = 0; i <= WAVE_STEPS; i += 1) {
@@ -23,11 +23,13 @@ function buildWavePath(layer) {
     const midLift = 30 * Math.sin(t * 2 + 0.9) ** 2
     const frontLift = midLift + 28 * Math.sin(t * 3 + 2.4) ** 2
     const lift = layer === 'back' ? 0 : layer === 'middle' ? midLift : frontLift
-    const y = waveY(x) + lift
+    const y = inverted ? 160 - (waveY(x) + lift) : waveY(x) + lift
     points.push(`${i === 0 ? 'M' : 'L'}${x.toFixed(2)},${y.toFixed(2)}`)
   }
 
-  return `${points.join(' ')} L${WAVE_WIDTH},160 L0,160 Z`
+  return inverted
+    ? `${points.join(' ')} L${WAVE_WIDTH},0 L0,0 Z`
+    : `${points.join(' ')} L${WAVE_WIDTH},160 L0,160 Z`
 }
 
 const layers = [
@@ -36,9 +38,17 @@ const layers = [
   { key: 'front', fill: 'var(--color-cascade-pale)', path: buildWavePath('front') },
 ]
 
-export default function AnimatedWave() {
+const invertedLayers = [
+  { key: 'back', fill: 'var(--color-cascade-deep)', path: buildWavePath('back', true) },
+  { key: 'middle', fill: 'var(--color-cascade-mid)', path: buildWavePath('middle', true) },
+  { key: 'front', fill: 'var(--color-cascade-pale)', path: buildWavePath('front', true) },
+]
+
+export default function AnimatedWave({ variant = 'hero' }) {
   const ref = useRef(null)
   const [paused, setPaused] = useState(false)
+  const footer = variant === 'footer'
+  const activeLayers = footer ? invertedLayers : layers
 
   useEffect(() => {
     const node = ref.current
@@ -67,8 +77,12 @@ export default function AnimatedWave() {
   }, [])
 
   return (
-    <div ref={ref} className={`cascade${paused ? ' is-paused' : ''}`} aria-hidden="true">
-      {layers.map(layer => (
+    <div
+      ref={ref}
+      className={`cascade${footer ? ' cascade--footer' : ''}${paused ? ' is-paused' : ''}`}
+      aria-hidden="true"
+    >
+      {activeLayers.map(layer => (
         <div key={layer.key} className={`cascade-layer cascade-layer--${layer.key}`}>
           <div className={`cascade-bob cascade-bob--${layer.key}`}>
             <svg viewBox="0 0 2880 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">

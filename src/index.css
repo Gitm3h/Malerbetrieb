@@ -419,6 +419,31 @@
   z-index: 5;
 }
 
+.cascade--footer {
+  top: -1px;
+  bottom: auto;
+  height: clamp(90px, 10vw, 150px);
+}
+
+.cascade--footer::after {
+  display: none;
+}
+
+.cascade--footer::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 46%;
+  z-index: 7;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    var(--color-chalk) 0%,
+    rgba(242, 239, 230, 0.62) 22%,
+    rgba(242, 239, 230, 0) 100%
+  );
+}
+
 .cascade-layer {
   position: absolute;
   left: 0;
