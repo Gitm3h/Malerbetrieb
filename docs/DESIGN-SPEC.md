@@ -95,7 +95,7 @@ Constraints:
 
 ### 2.3 Layout concept
 
-Page order stays: Hero → Leistungen → Referenzen → Über uns → Kundenstimmen → Projekt → Kontakt → Footer.
+Page order stays: Hero → Leistungen → Referenzen → Über uns → Kundenstimmen → Auszeichnungen → Projekt → Kontakt → Footer.
 
 Desktop hero, 12-column grid, content max 1200px:
 
@@ -213,7 +213,7 @@ Four chips:
 - White text on ultramarine, verdigris, madder; ink text on saffron.
 - Hover: `translateY(-6px)`, the 1px rule grows to 3px; 200ms. Focus-visible: 2px ink outline with 3px offset. The whole chip is the link to `#kontakt`, with the service name in the accessible label.
 - Clicking a chip stores the chosen service and preselects it in the contact form. The form shows a removable “Anfrage: …” chip and a hidden `leistung` field.
-- Bottom CTA: text link “Alle Leistungen anfragen” with a painted underline, ultramarine; clears the service preselection.
+- No bottom “Alle Leistungen anfragen” link. The four chips and the contact CTA are enough.
 
 ### 3.4 Referenzen
 
@@ -256,7 +256,15 @@ Featured sample board:
 - The scroll region is focusable with `aria-label="Kundenbewertungen – seitlich scrollbar"`. The duplicate card set is `aria-hidden`.
 - Reduced motion: auto-scroll off, duplicate set hidden, manual scroll only.
 
-### 3.7 Projekt
+### 3.7 Auszeichnungen
+
+- Chalk-2 ground, directly under Kundenstimmen. Kicker “Fiktive Auszeichnungen”. H2 “Was uns auszeichnet.” Note: “Beispielhafte Siegel für dieses Portfolio-Projekt. Keine echten Awards.”
+- Six badge cards: Meisterbetrieb, 5,0 Sterne, Top 2025, 12 Fachkräfte, 1.000+, Low-VOC. Each has a circular seal, overline, title, and subline.
+- Duplicated badge set loops continuously **rightward**, opposite the reviews. Hover pauses. Edge mask softens entry/exit.
+- Reduced motion: animation off, duplicate hidden, manual horizontal scroll.
+- Badges are fictional and are also listed as invented in the Projekt transparency panel.
+
+### 3.8 Projekt
 
 - Paper ground, bordered top, between Kundenstimmen and Kontakt. Kicker “Portfolio-Projekt”. H2 “Ein fiktives Unternehmen. Ein echtes Frontend-Projekt.”
 - Copy states clearly that Malerbetrieb Schmidt is fictional and that the page is portfolio work for frontend, UI, and motion design.
@@ -265,7 +273,7 @@ Featured sample board:
 - AI disclosure: design/code/copy produced with DeepSeek Harness; requirements, selection, and approvals by Gitm3h. Room images generated with Gemini. Reviews invented. Service/team photos Unsplash/Pexels. Form is demo-only.
 - Link to the three credit files. No real client, address, phone, or testimonials are claimed.
 
-### 3.8 Kontakt
+### 3.9 Kontakt
 
 - Chalk ground. Kicker “Jetzt anfragen”. H2 “Was soll gestrichen werden?” Intro: “Kostenloser Kostenvoranschlag. Wir melden uns innerhalb von 24 Stunden.” Small note: “Demo-Formular: Es wird keine Nachricht versendet und nichts gespeichert.”
 - Form panel: white-ish `#FBF9F3` with 1px ink rule, no shadow, no 2xl radius. 8px radius maximum.
@@ -277,7 +285,7 @@ Featured sample board:
 - Sidebar: phone block in ultramarine with chalk text; address, opening hours, and email as open blocks separated by rules, not four rounded cards.
 - Keep the existing simulated send; do not invent a backend.
 
-### 3.9 Footer and Impressum
+### 3.10 Footer and Impressum
 
 - Footer petrol ink, chalk/70 text. Wordmark, one-sentence description, phone.
 - Columns: Einzugsgebiet (Altona, Ottensen, Bahrenfeld, Othmarschen, Nienstedten), Schnellzugriff (including Projekt), Impressum & Datenschutz.
@@ -357,6 +365,7 @@ Height: `clamp(72px, 10vw, 160px)`. The layers overlap so the colors read as a c
 - Wave: continuous ambient motion.
 - Hero pigment deck: idle close/reorder/re-fan every ~5s on all viewports; hover pauses and draws a card.
 - Reviews: continuous auto-scroll at about 45px/s; hover/focus pauses; native manual scroll always works.
+- Awards: continuous rightward drift, opposite the reviews; hover pauses. Disabled under reduced motion.
 - Link whoosh: 680ms speed-streak overlay on navigable link clicks and once per manual scroll gesture. A link click suppresses the scroll trigger for 1s.
 - Section headers: a 420ms opacity/translate reveal once, triggered at 15% visibility, only for the section kicker+heading, not every child.
 - Featured board: one interaction hint per page load.
@@ -407,6 +416,7 @@ Hard requirements:
 | `maler-schmidt-app/src/components/Referenzen.jsx` | Featured slider, case chips above board, keyboard/pointer support, hint, KI-Illustration badge |
 | `maler-schmidt-app/src/components/Projekt.jsx` | Fictional-business and AI-usage disclosure section |
 | `maler-schmidt-app/src/components/Kundenstimmen.jsx` | Six illustrative Google-style reviews, auto-scrolling native scroll strip, hidden scrollbar, hover/focus pause |
+| `maler-schmidt-app/src/components/Auszeichnungen.jsx` | Six fictional award badges, rightward loop opposite reviews, hover pause |
 | `maler-schmidt-app/src/components/Whoosh.jsx` | Full-screen speed-streak transition on navigable link clicks and manual scroll gestures |
 | `maler-schmidt-app/.github/workflows/publish.yml` | Build and push `dist/` to `gh-pages` on every push to `main`; point Pages at it |
 | `maler-schmidt-app/docs/*` | Portfolio preview screenshots used by the GitHub README |

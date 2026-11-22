@@ -5,6 +5,7 @@ const aiFacts = [
   ['Unternehmen', 'Malerbetrieb Schmidt ist fiktiv. Adresse, Telefon und Bewertungen sind erfunden.'],
   ['Design, Code, Texte', 'Mit KI-Unterstützung erstellt (DeepSeek Harness). Anforderungen, Auswahl und Freigaben: Gitm3h.'],
   ['Raumbilder', 'KI-generiert mit Gemini. Keine fotografierten Kundenprojekte.'],
+  ['Auszeichnungen', 'Die Badges sind frei erfunden und nicht verliehen.'],
   ['Weitere Bilder', 'Service- und Teamfotos von Unsplash/Pexels. Nachweise in den Credits.'],
   ['Formular', 'Demo only. Es wird keine Nachricht versendet und nichts gespeichert.'],
 ]

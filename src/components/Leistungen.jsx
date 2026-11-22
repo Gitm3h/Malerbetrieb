@@ -140,12 +140,6 @@ export default function Leistungen({ onSelectService = () => {} }) {
             ))}
           </div>
         </Reveal>
-
-        <Reveal className="mt-8 sm:mt-12">
-          <a href="#kontakt" className="link-paint" onClick={() => onSelectService('')}>
-            Alle Leistungen anfragen
-          </a>
-        </Reveal>
       </div>
     </section>
   )

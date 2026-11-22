@@ -547,6 +547,35 @@
   padding-right: 1rem;
 }
 
+/* ── Awards strip ──────────────────────────────────────────── */
+.rewards-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+}
+
+.rewards-track {
+  display: flex;
+  width: max-content;
+  animation: rewardsDrift 52s linear infinite;
+  will-change: transform;
+}
+
+.rewards-group {
+  display: flex;
+  gap: 1rem;
+  padding-right: 1rem;
+}
+
+.rewards-marquee:hover .rewards-track {
+  animation-play-state: paused;
+}
+
+@keyframes rewardsDrift {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
 /* ── Link whoosh ───────────────────────────────────────────── */
 .whoosh {
   position: fixed;
@@ -829,6 +858,9 @@
   .review-track { animation: none !important; }
   .review-group[aria-hidden="true"] { display: none; }
   .review-marquee { overflow-x: auto; }
+  .rewards-track { animation: none !important; }
+  .rewards-group[aria-hidden="true"] { display: none; }
+  .rewards-marquee { overflow-x: auto; }
   .whoosh { display: none !important; }
 }
 

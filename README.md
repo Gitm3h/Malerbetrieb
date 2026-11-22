@@ -48,6 +48,7 @@ The transparency section is part of the live page at `#projekt`, not hidden in t
 | Design exploration, code, copy | Produced with DeepSeek Harness under human direction |
 | Room before/after images | Generated with Gemini; selected and supplied by Gitm3h |
 | Google-style reviews | Written and invented for the demo |
+| Awards/badges | Invented; no real awards were given |
 | Service and team photos | Unsplash/Pexels, credited in the source tree |
 | Requirements, review, approval | Gitm3h |
 
@@ -60,6 +61,7 @@ The AI did not invent a real client, a real project, or real testimonials. The s
 - Accessible before/after slider with keyboard, pointer, and touch support.
 - Service cards linked to a preselected enquiry.
 - Horizontally scrollable review strip with hidden scrollbar and auto-scroll.
+- Fictional awards strip that drifts opposite the reviews, with hover pause.
 - Link/scroll speed-streak effect, disabled for reduced motion.
 - Mobile navigation sheet with focus trap.
 - Impressum/Datenschutz modal with focus trap.

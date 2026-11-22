@@ -5,6 +5,7 @@ import Leistungen from './components/Leistungen'
 import Referenzen from './components/Referenzen'
 import UeberUns from './components/UeberUns'
 import Kundenstimmen from './components/Kundenstimmen'
+import Auszeichnungen from './components/Auszeichnungen'
 import Projekt from './components/Projekt'
 import Kontakt from './components/Kontakt'
 import Footer from './components/Footer'
@@ -29,6 +30,7 @@ export default function App() {
         <Referenzen />
         <UeberUns />
         <Kundenstimmen />
+        <Auszeichnungen />
         <Projekt />
         <Kontakt key={selectedService?.at ?? 'neu'} selectedService={selectedService} />
       </main>
