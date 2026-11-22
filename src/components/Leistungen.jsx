@@ -81,9 +81,9 @@ export default function Leistungen({ onSelectService = () => {} }) {
         </Reveal>
 
         <Reveal className="mt-12">
-          <div className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 xl:grid-cols-4">
+          <div className="-mx-5 flex snap-x snap-mandatory items-stretch gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 xl:grid-cols-4">
             {items.map(service => (
-              <div key={service.id} className="h-full w-[80vw] shrink-0 snap-start sm:w-auto sm:min-w-0">
+              <div key={service.id} className="w-[80vw] shrink-0 snap-start sm:w-auto sm:min-w-0">
                 <a
                   href="#kontakt"
                   onClick={() => onSelectService(service.title)}
@@ -125,7 +125,7 @@ export default function Leistungen({ onSelectService = () => {} }) {
                     <p className="mt-3 text-[0.9rem] leading-relaxed opacity-90 sm:text-[0.93rem]">
                       {service.desc}
                     </p>
-                    <span className="mt-5 inline-block text-[0.78rem] font-bold underline underline-offset-4 opacity-90">
+                    <span className="mt-auto pt-5 inline-block text-[0.78rem] font-bold underline underline-offset-4 opacity-90">
                       {copy.services.request}
                     </span>
                   </div>

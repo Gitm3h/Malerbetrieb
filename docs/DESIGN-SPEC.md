@@ -219,6 +219,7 @@ Four chips:
 | Bodenbeschichtung | Saffron `#F3A712` | Epoxid, Versiegelung, Farbgestaltung – für Garage, Keller, Gewerbe. |
 
 - Desktop layout: four columns from 1280px; two columns from 640–1279px; horizontal snap strip below 640px. Each card has a 4:3 duotone service image in its pigment, then a color field with icon, rule, title, and description. Square corners, 1px border, icon 20px inside a 36px ink square, service name Fraunces 600 at 1.3–1.45rem, description Karla 0.9–0.93rem.
+- Cards stretch to equal height per row/strip; the request link is pinned to the bottom. Longer translations must not make one card taller than its neighbours.
 - Images are free-license stock, duotoned in the service pigment, and labelled illustrative in the credits. They are not presented as completed client work.
 - White text on ultramarine, verdigris, madder; ink text on saffron.
 - Hover: `translateY(-6px)`, the 1px rule grows to 3px; 200ms. Focus-visible: 2px ink outline with 3px offset. The whole chip is the link to `#kontakt`, with the service name in the accessible label.
