@@ -425,6 +425,12 @@
   height: clamp(90px, 10vw, 150px);
 }
 
+.cascade--footer .cascade-layer {
+  top: -18px;
+  bottom: auto;
+  height: calc(100% + 18px);
+}
+
 .cascade--footer::after {
   display: none;
 }

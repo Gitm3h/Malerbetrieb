@@ -90,6 +90,7 @@ export default function AnimatedWave({ variant = 'hero' }) {
                 <defs>
                   <linearGradient id="footerFade" x1="0" y1="0" x2="0" y2="105" gradientUnits="userSpaceOnUse">
                     <stop offset="0%" stopColor="var(--color-chalk)" />
+                    <stop offset="20%" stopColor="var(--color-chalk)" />
                     <stop offset="34%" stopColor="var(--color-chalk)" stopOpacity="0.55" />
                     <stop offset="100%" stopColor="var(--color-cascade-pale)" />
                   </linearGradient>
