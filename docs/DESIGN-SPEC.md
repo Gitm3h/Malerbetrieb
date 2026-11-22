@@ -333,7 +333,7 @@ Height: `clamp(72px, 10vw, 160px)`. The layers overlap so the colors read as a c
 
 - The footer repeats the same master curve and 30s drift at the top edge, vertically inverted.
 - Filled area sits above the wave line: pale front, mid behind, deep back, then ink below.
-- The pale front layer uses a chalk-to-pale gradient at the top, so only the upper layer fades into the previous section. No separate overlay.
+- The pale front layer uses a chalk-to-pale gradient at the top; the chalk stop covers the 18px overscan so the visible top edge is chalk, then fades. No separate overlay.
 - Height `clamp(90px, 10vw, 150px)`. A chalk seam cap hides the SVG anti-alias line.
 - Same pause-on-offscreen and reduced-motion rules. No second independent motion system.
 
