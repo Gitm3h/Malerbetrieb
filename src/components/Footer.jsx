@@ -4,6 +4,7 @@ const links = [
   { label: 'Leistungen', href: '#leistungen' },
   { label: 'Referenzen', href: '#referenzen' },
   { label: 'Über uns', href: '#ueber-uns' },
+  { label: 'Projekt', href: '#projekt' },
   { label: 'Kontakt', href: '#kontakt' },
 ]
 
@@ -69,7 +70,7 @@ export default function Footer({ onImpressum }) {
         </div>
 
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-chalk/10 pt-6 text-xs sm:flex-row sm:items-center">
-          <p>© 2026 Malerbetrieb Schmidt – Klaus Schmidt, Malermeister. Alle Rechte vorbehalten.</p>
+          <p>© 2026 Malerbetrieb Schmidt · Portfolio-Demo · fiktives Unternehmen.</p>
           <button
             type="button"
             onClick={onImpressum}

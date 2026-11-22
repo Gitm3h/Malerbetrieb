@@ -4,6 +4,7 @@ const links = [
   { label: 'Leistungen', href: '#leistungen' },
   { label: 'Referenzen', href: '#referenzen' },
   { label: 'Über uns', href: '#ueber-uns' },
+  { label: 'Projekt', href: '#projekt' },
 ]
 
 function Wordmark({ tone = 'chalk' }) {

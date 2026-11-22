@@ -192,7 +192,7 @@ export default function Kundenstimmen() {
       <div className="container-main">
         <Reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
-            <p className="kicker">Google-Rezensionen</p>
+            <p className="kicker">Fiktive Google-Rezensionen</p>
             <h2 id="bewertungen-title" className="mt-3 font-display text-[clamp(2rem,4.5vw,3.3rem)] font-semibold leading-[1.02]">
               Nach dem Anstrich bleibt der Eindruck.
             </h2>

@@ -69,8 +69,14 @@ export default function Hero() {
     >
       <div className="container-main relative z-10 grid w-full items-center gap-12 pt-8 lg:grid-cols-12 lg:gap-8 lg:pt-4">
         <div className="lg:col-span-7">
-          <p className="hero-enter mb-6 text-sm font-semibold text-mist">
-            Malerbetrieb Schmidt · Hamburg-Altona
+          <p className="hero-enter mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 text-sm font-semibold text-mist">
+            <a
+              href="#projekt"
+              className="border border-mist/40 px-2 py-1 text-[0.62rem] tracking-[0.05em] transition-colors hover:border-chalk hover:bg-chalk hover:text-ink"
+            >
+              Portfolio-Demo
+            </a>
+            <span>Malerbetrieb Schmidt · Hamburg-Altona</span>
           </p>
 
           <h1 className="hero-title hero-enter hero-enter-1">

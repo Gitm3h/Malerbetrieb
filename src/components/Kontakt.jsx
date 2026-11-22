@@ -85,6 +85,9 @@ export default function Kontakt({ selectedService = null }) {
           <p className="section-lede mt-5">
             Kostenloser Kostenvoranschlag. Wir melden uns innerhalb von 24 Stunden.
           </p>
+          <p className="mt-3 text-xs leading-relaxed text-ink/50">
+            Demo-Formular: Es wird keine Nachricht versendet und nichts gespeichert.
+          </p>
         </Reveal>
 
         <div className="mt-12 grid gap-10 lg:grid-cols-12">

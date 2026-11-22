@@ -5,6 +5,7 @@ import Leistungen from './components/Leistungen'
 import Referenzen from './components/Referenzen'
 import UeberUns from './components/UeberUns'
 import Kundenstimmen from './components/Kundenstimmen'
+import Projekt from './components/Projekt'
 import Kontakt from './components/Kontakt'
 import Footer from './components/Footer'
 import Impressum from './components/Impressum'
@@ -28,6 +29,7 @@ export default function App() {
         <Referenzen />
         <UeberUns />
         <Kundenstimmen />
+        <Projekt />
         <Kontakt key={selectedService?.at ?? 'neu'} selectedService={selectedService} />
       </main>
       <Footer onImpressum={() => setShowImpressum(true)} />
