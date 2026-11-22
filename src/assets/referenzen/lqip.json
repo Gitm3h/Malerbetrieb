@@ -1,0 +1,17 @@
+{
+  "wohnzimmer": {
+    "lqip": "data:image/webp;base64,UklGRqwAAABXRUJQVlA4IKAAAABQBQCdASogABIAPwFqrE8rJiQiMAgBYCAJZQC3uCLG8bgBRujqfdpDVx6mRPGKObyyJsAA/TLOEgAUXfxmQ4hy1ctBXXjzisMkcrpENd5cpormZDHwKQk2yoy7FQWPjiNCDcuCV4OgH6A5jgaY1Xnf9Pr1aOJkk+ZoaLzny05cYhmrSl0WLrKlrxnr45ziwFNnq4aAWPKHSIpws4gpRhAA",
+    "width": 1408,
+    "height": 768
+  },
+  "schlafzimmer": {
+    "lqip": "data:image/webp;base64,UklGRpYAAABXRUJQVlA4IIoAAABwBQCdASogABIAPwFssFErJaSisBgIAWAgCWUAxkAQ72ndjhDeRgQgiqgx+5jLWQ3HwQpAAP621z+9Wqoo+isXE0Thvtyw3vHRFjxw9gKvVDsqyJ6HN0O/SJf3G2tWbUOTP5XdTIIbbt5kiAtlAETI0oHQf9FHsMNBr4YaO2F6mOB9/l9THyBAAAA=",
+    "width": 1408,
+    "height": 768
+  },
+  "kueche": {
+    "lqip": "data:image/webp;base64,UklGRsgAAABXRUJQVlA4ILwAAADwBACdASogABIAPwFqsFErJaSisBgIAWAgCUAXyQYysCSp5/PRp0OFVxIHM2t4sQAA9yGj2s7gnJP7jvWHnaCGp4QYOlcVg51oRyuh2gcT/OINP6RmJY3H7R13LBXXxtTKT3vXhQyfux7eMUnB7FMIYe0MXi+JmxX5HnP179KyEzq+MhGUqTwbrLVl9BpVR66yknQUqRrs2nhznDJCelza2NIAAamczlY53PApbhhZQB1XKXmjP3Z8CDAAAA==",
+    "width": 1408,
+    "height": 768
+  }
+}

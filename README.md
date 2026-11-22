@@ -1,16 +1,60 @@
-# React + Vite
+# Malerbetrieb Schmidt
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Art-directed marketing site for a fictitious Hamburg painting business.
+React 19, Vite 8, Tailwind CSS 4.
 
-Currently, two official plugins are available:
+## Run
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+## Build and lint
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run lint
+npm run build
+npm run preview
+```
 
-## Expanding the Oxlint configuration
+## Structure
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+- `src/index.css` — pigment-studio tokens, base type, shared primitives, cascade animation, reduced-motion rules
+- `src/components/AnimatedWave.jsx` — three-layer SVG wave; pauses off-screen and when the tab is hidden
+- `src/components/Hero.jsx` — hero copy, seven-color interactive pigment deck, animated wave
+- `src/components/Leistungen.jsx` — duotone service images and paint-chip service rack
+- `src/components/Referenzen.jsx` — featured before/after slider, keyboard support, project tabs
+- `src/components/UeberUns.jsx` — about section and painter photo
+- `src/components/Whoosh.jsx` — full-screen speed-streak effect on navigable link clicks and manual scroll gestures
+- `src/components/Kundenstimmen.jsx` — auto-scrolling Google-style review cards, native horizontal scroll, hover pause
+- `src/components/Kontakt.jsx` — validated enquiry form with inline errors and success state
+- `src/assets/referenzen/` — supplied AI WebP pairs, LQIP manifest, credits
+- `src/assets/services/` — duotone service images and credits
+
+## Before/after images
+
+The gallery uses three matched pairs supplied by the client and generated with
+Gemini: Wohnzimmer, Schlafzimmer, Küche. Each pair uses the same camera angle.
+They are AI illustrations, not completed client projects. The UI labels them
+“KI-Illustration”. See `src/assets/referenzen/CREDITS.md`.
+
+## Contact form
+
+The form validates on blur and submit, then simulates a send. It does not post
+to a backend and is intentionally client-only.
+
+## Before a real launch
+
+- Replace the placeholder address, phone number, e-mail, and USt-ID.
+- Connect the form to a real endpoint, add spam protection, and store consent.
+- Review the Datenschutz text in `Impressum.jsx` with legal counsel.
+- Replace the illustrative room pairs and the stock painter photo with real
+  project and team photos. Update `CREDITS.md` when replacing them.
+
+## Motion
+
+The cascade is CSS-only: three SVG layers drift together over 30s and bob
+out of phase at 11s, 9s, and 13s. It pauses via IntersectionObserver and
+`visibilitychange`. All entrance, reveal, and wave motion is disabled under
+`prefers-reduced-motion: reduce`.
