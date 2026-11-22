@@ -191,7 +191,7 @@ What changed after review:
 - Subline: “Innenanstrich, Fassade und Lack – sauber ausgeführt von 12 Fachkräften in Altona. Seit 1998.” Max 46ch.
 - CTAs: saffron “Kostenlos anfragen” and a ghost “040 – 1234567” with a thin chalk border.
 - Trust line: three plain statements separated by spacing, not bullets-with-arrows: “25+ Jahre Erfahrung”, “Meisterbetrieb”, “Kostenloser Kostenvoranschlag”.
-- Pigment deck: seven panels, 224×296px desktop, fanned around a bottom pivot from −27° to +27°; labels Ultramarin 2C4BDF, Safran F3A712, Verdigris 1F6F61, Madder B02A4A, Kreide F2EFE6, Koralle E76F51, Mist A7CFC9. Center card sits on top. Idle shuffle closes the fan, reorders, and reopens. Hover draws a card up. Panel texture is a low-opacity CSS roller-streak overlay, not a gradient.
+- Pigment deck: seven panels, 224×296px desktop, fanned around a bottom pivot from −27° to +27°; labels Ultramarin 2C4BDF, Safran F3A712, Verdigris 1F6F61, Madder B02A4A, Kreide F2EFE6, Koralle E76F51, Mint A7CFC9. Center card sits on top. Idle shuffle closes the fan, reorders, and reopens. Hover draws a card up. Panel texture is a low-opacity CSS roller-streak overlay, not a gradient.
 - Entrance choreography, once per page load: kicker at 0ms, H1 at 80ms, subline at 160ms, CTAs at 240ms, deck at 400ms. Transform `translateY(18px)` to `0`, opacity 0→1, 620ms, `cubic-bezier(.2,.7,.2,1)`. Never replay on scroll.
 - Bottom wave: see section 4.
 

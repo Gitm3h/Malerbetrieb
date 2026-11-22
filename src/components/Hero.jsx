@@ -8,7 +8,7 @@ const pigments = [
   { name: 'Madder', hex: 'B02A4A', color: '#B02A4A', text: '#FFFFFF' },
   { name: 'Kreide', hex: 'F2EFE6', color: '#F2EFE6', text: '#082527' },
   { name: 'Koralle', hex: 'E76F51', color: '#E76F51', text: '#082527' },
-  { name: 'Mist', hex: 'A7CFC9', color: '#A7CFC9', text: '#082527' },
+  { name: 'Mint', hex: 'A7CFC9', color: '#A7CFC9', text: '#082527' },
 ]
 
 const trust = ['25+ Jahre Erfahrung', 'Meisterbetrieb', 'Kostenloser Kostenvoranschlag']
