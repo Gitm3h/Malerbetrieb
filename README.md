@@ -39,6 +39,24 @@ Gemini: Wohnzimmer, Schlafzimmer, Küche. Each pair uses the same camera angle.
 They are AI illustrations, not completed client projects. The UI labels them
 “KI-Illustration”. See `src/assets/referenzen/CREDITS.md`.
 
+## GitHub
+
+Repository: https://github.com/Gitm3h/Malerbetrieb
+
+Pushes to `main` run `.github/workflows/publish.yml`:
+
+1. `npm ci`
+2. `npm run build`
+3. Push `dist/` to the `gh-pages` branch as an orphan commit.
+
+The workflow cannot push local uncommitted changes. `main` must receive a push first.
+
+One-time GitHub Pages setting: **Settings → Pages → Deploy from a branch → `gh-pages` / root**. The site URL is then:
+
+https://gitm3h.github.io/Malerbetrieb/
+
+`vite.config.js` uses `base: './'` so the same build works on the project Pages subpath and on BrewPage root.
+
 ## Contact form
 
 The form validates on blur and submit, then simulates a send. It does not post
