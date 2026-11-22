@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Private agent and deployment notes
+AGENTS.md
+deploy-info.md
