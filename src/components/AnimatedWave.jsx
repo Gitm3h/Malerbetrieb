@@ -78,7 +78,6 @@ export default function AnimatedWave() {
           </div>
         </div>
       ))}
-      <div className="cascade-edge" />
     </div>
   )
 }

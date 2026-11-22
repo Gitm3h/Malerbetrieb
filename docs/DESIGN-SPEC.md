@@ -305,7 +305,7 @@ Three stacked SVG wave bands at the hero's bottom edge, all blue-green, blending
 - Back layer: `--cascade-deep` `#0B3A3D`, tallest amplitude, lowest opacity (0.9), slowest.
 - Middle layer: `--cascade-mid` `#1C7285`, medium amplitude, full opacity.
 - Front layer: `--cascade-pale` `#A7CFC9`, smallest amplitude, full opacity, ends in a straight chalk edge below.
-- A thin 1px chalk hairline sits on the lowest edge to separate the wave from the light section.
+- The front layer fades into the next chalk section through a bottom gradient. No hard 1px hairline; no visible seam.
 
 Height: `clamp(72px, 10vw, 160px)`. The layers overlap so the colors read as a cascade, not three separate stripes. The wave shape must be a smooth hand-painted curve, not a symmetrical sine.
 
