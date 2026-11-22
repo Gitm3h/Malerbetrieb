@@ -12,8 +12,9 @@ const links = [
 
 export default function Footer({ onImpressum }) {
   return (
-    <footer className="on-dark relative overflow-hidden bg-ink text-chalk/70" aria-label="Seitenfuß">
+    <footer className="on-dark relative overflow-hidden border-t-2 border-chalk bg-ink text-chalk/70" aria-label="Seitenfuß">
       <AnimatedWave variant="footer" />
+      <div className="footer-seam" aria-hidden="true" />
       <div className="container-main pb-12 pt-32 sm:pt-36 lg:pb-16 lg:pt-40">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">

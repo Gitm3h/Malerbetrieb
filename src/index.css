@@ -429,19 +429,14 @@
   display: none;
 }
 
-.cascade--footer::before {
-  content: "";
+.footer-seam {
   position: absolute;
-  inset: 0 0 auto;
-  height: 46%;
-  z-index: 7;
-  pointer-events: none;
-  background: linear-gradient(
-    to bottom,
-    var(--color-chalk) 0%,
-    rgba(242, 239, 230, 0.62) 22%,
-    rgba(242, 239, 230, 0) 100%
-  );
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 10;
+  background: var(--color-chalk);
 }
 
 .cascade-layer {

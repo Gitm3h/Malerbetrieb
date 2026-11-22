@@ -86,8 +86,24 @@ export default function AnimatedWave({ variant = 'hero' }) {
         <div key={layer.key} className={`cascade-layer cascade-layer--${layer.key}`}>
           <div className={`cascade-bob cascade-bob--${layer.key}`}>
             <svg viewBox="0 0 2880 160" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-              <path d={layer.path} fill={layer.fill} />
-              <path d={layer.path} fill={layer.fill} transform="translate(1440 0)" />
+              {footer && layer.key === 'front' && (
+                <defs>
+                  <linearGradient id="footerFade" x1="0" y1="0" x2="0" y2="105" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stopColor="var(--color-chalk)" />
+                    <stop offset="34%" stopColor="var(--color-chalk)" stopOpacity="0.55" />
+                    <stop offset="100%" stopColor="var(--color-cascade-pale)" />
+                  </linearGradient>
+                </defs>
+              )}
+              <path
+                d={layer.path}
+                fill={footer && layer.key === 'front' ? 'url(#footerFade)' : layer.fill}
+              />
+              <path
+                d={layer.path}
+                fill={footer && layer.key === 'front' ? 'url(#footerFade)' : layer.fill}
+                transform="translate(1440 0)"
+              />
             </svg>
           </div>
         </div>
