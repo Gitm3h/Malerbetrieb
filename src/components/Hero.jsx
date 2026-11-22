@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react'
 import AnimatedWave from './AnimatedWave'
+import { useLanguage } from '../i18n'
 
 const pigments = [
-  { name: 'Ultramarin', hex: '2C4BDF', color: '#2C4BDF', text: '#FFFFFF' },
-  { name: 'Safran', hex: 'F3A712', color: '#F3A712', text: '#082527' },
-  { name: 'Verdigris', hex: '1F6F61', color: '#1F6F61', text: '#FFFFFF' },
-  { name: 'Madder', hex: 'B02A4A', color: '#B02A4A', text: '#FFFFFF' },
-  { name: 'Kreide', hex: 'F2EFE6', color: '#F2EFE6', text: '#082527' },
-  { name: 'Koralle', hex: 'E76F51', color: '#E76F51', text: '#082527' },
-  { name: 'Mint', hex: 'A7CFC9', color: '#A7CFC9', text: '#082527' },
+  { hex: '2C4BDF', color: '#2C4BDF', text: '#FFFFFF' },
+  { hex: 'F3A712', color: '#F3A712', text: '#082527' },
+  { hex: '1F6F61', color: '#1F6F61', text: '#FFFFFF' },
+  { hex: 'B02A4A', color: '#B02A4A', text: '#FFFFFF' },
+  { hex: 'F2EFE6', color: '#F2EFE6', text: '#082527' },
+  { hex: 'E76F51', color: '#E76F51', text: '#082527' },
+  { hex: 'A7CFC9', color: '#A7CFC9', text: '#082527' },
 ]
-
-const trust = ['25+ Jahre Erfahrung', 'Meisterbetrieb', 'Kostenloser Kostenvoranschlag']
 
 function useDeckMotion() {
   const [enabled, setEnabled] = useState(false)
@@ -30,6 +29,7 @@ function useDeckMotion() {
 }
 
 export default function Hero() {
+  const { copy } = useLanguage()
   const [order, setOrder] = useState(() => pigments.map((_, index) => index))
   const [hovered, setHovered] = useState(null)
   const [shuffling, setShuffling] = useState(false)
@@ -65,7 +65,7 @@ export default function Hero() {
     <section
       id="hero"
       className="hero-shell grain on-dark relative flex min-h-svh items-center overflow-hidden pb-32 pt-24 sm:pb-40 lg:pb-44"
-      aria-label="Malerbetrieb Schmidt – Willkommen"
+      aria-label={copy.hero.aria}
     >
       <div className="container-main relative z-10 grid w-full items-center gap-12 pt-8 lg:grid-cols-12 lg:gap-8 lg:pt-4">
         <div className="lg:col-span-7">
@@ -74,23 +74,22 @@ export default function Hero() {
               href="#projekt"
               className="border border-mist/40 px-2 py-1 text-[0.62rem] tracking-[0.05em] transition-colors hover:border-chalk hover:bg-chalk hover:text-ink"
             >
-              Portfolio-Demo
+              {copy.hero.portfolio}
             </a>
-            <span>Malerbetrieb Schmidt · Hamburg-Altona</span>
+            <span>{copy.hero.location}</span>
           </p>
 
           <h1 className="hero-title hero-enter hero-enter-1">
-            Farbe, die<br />den Raum<br />verändert.
+            {copy.hero.title[0]}<br />{copy.hero.title[1]}<br />{copy.hero.title[2]}
           </h1>
 
           <p className="hero-sub hero-enter hero-enter-2 mt-7">
-            Innenanstrich, Fassade und Lack – sauber ausgeführt von 12 Fachkräften
-            in Altona. Seit 1998.
+            {copy.hero.subtitle}
           </p>
 
           <div className="hero-enter hero-enter-3 mt-9 flex flex-wrap gap-3">
             <a href="#kontakt" className="btn-primary px-6">
-              Kostenlos anfragen
+              {copy.hero.cta}
             </a>
             <a href="tel:04012345467" className="btn-ghost btn-ghost--chalk whitespace-nowrap px-6">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -101,7 +100,7 @@ export default function Hero() {
           </div>
 
           <ul className="hero-enter hero-enter-4 mt-10 flex flex-wrap gap-x-7 gap-y-3 border-t border-chalk/15 pt-5 text-sm text-chalk/70">
-            {trust.map(item => (
+            {copy.hero.trust.map(item => (
               <li key={item} className="flex items-center gap-2">
                 <span className="h-1 w-1 rounded-full bg-saffron" aria-hidden="true" />
                 {item}
@@ -118,7 +117,7 @@ export default function Hero() {
 
               return (
                 <div
-                  key={pigment.name}
+                  key={pigment.hex}
                   className={`pigment-panel${isDrawn ? ' is-drawn' : ''}`}
                   style={{
                     '--deck-i': deckIndex,
@@ -133,7 +132,7 @@ export default function Hero() {
                   }}
                   onPointerLeave={() => setHovered(null)}
                 >
-                  <span className="paint-name">{pigment.name}</span>
+                  <span className="paint-name">{copy.hero.paintNames[pigmentIndex]}</span>
                   <span className="paint-hex">{pigment.hex}</span>
                 </div>
               )

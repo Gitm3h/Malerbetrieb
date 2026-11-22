@@ -1,4 +1,5 @@
 import Reveal from './Reveal'
+import { useLanguage } from '../i18n'
 import innenImg from '../assets/services/generated/innen.webp'
 import fassadeImg from '../assets/services/generated/fassade.webp'
 import lackImg from '../assets/services/generated/lack.webp'
@@ -7,12 +8,9 @@ import bodenImg from '../assets/services/generated/boden.webp'
 const services = [
   {
     id: 'innenanstrich',
-    title: 'Innenanstrich',
-    desc: 'Wände, Decken, Treppenhäuser – sauber abgeklebt und termingerecht fertig.',
     color: '#2C4BDF',
     text: '#FFFFFF',
     image: innenImg,
-    alt: 'Farbroller auf einer frisch gestrichenen Wand',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
         <rect x="6" y="7" width="36" height="27" rx="2" stroke="currentColor" strokeWidth="2.4" />
@@ -23,12 +21,9 @@ const services = [
   },
   {
     id: 'fassadenanstrich',
-    title: 'Fassadenanstrich',
-    desc: 'Schutz vor Regen, Frost und Schimmel – mit einem Anstrich, der hält.',
     color: '#1F6F61',
     text: '#FFFFFF',
     image: fassadeImg,
-    alt: 'Hausfassade mit frisch gestrichener Wand',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
         <path d="M24 6 6 20v22h12V32h12v10h12V20L24 6Z" stroke="currentColor" strokeWidth="2.4" strokeLinejoin="round" />
@@ -39,12 +34,9 @@ const services = [
   },
   {
     id: 'lackierarbeiten',
-    title: 'Lackierarbeiten',
-    desc: 'Türen, Fenster, Heizkörper – glatt lackiert, ohne Läufer und Nasen.',
     color: '#B02A4A',
     text: '#FFFFFF',
     image: lackImg,
-    alt: 'Pinsel, Farbwanne und Farbdosen für Lackierarbeiten',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
         <path d="m14 36-6 6M14 36l20-20" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" />
@@ -56,12 +48,9 @@ const services = [
   },
   {
     id: 'bodenbeschichtung',
-    title: 'Bodenbeschichtung',
-    desc: 'Epoxid, Versiegelung, Farbgestaltung – für Garage, Keller und Gewerbe.',
     color: '#F3A712',
     text: '#082527',
     image: bodenImg,
-    alt: 'Glänzend beschichteter Hallenboden',
     icon: (
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
         <rect x="6" y="30" width="36" height="10" rx="1.5" stroke="currentColor" strokeWidth="2.4" />
@@ -74,28 +63,33 @@ const services = [
 ]
 
 export default function Leistungen({ onSelectService = () => {} }) {
+  const { copy } = useLanguage()
+  const items = copy.services.items.map(item => ({
+    ...services.find(service => service.id === item.id),
+    ...item,
+  }))
+
   return (
-    <section id="leistungen" className="bg-chalk py-20 sm:py-24 lg:py-28" aria-label="Unsere Leistungen">
+    <section id="leistungen" className="bg-chalk py-20 sm:py-24 lg:py-28" aria-label={copy.services.aria}>
       <div className="container-main">
         <Reveal className="max-w-2xl">
-          <p className="kicker">Unsere Farbkarte</p>
-          <h2 className="section-title mt-3">Vier Arbeiten.<br />Vier Farben.</h2>
+          <p className="kicker">{copy.services.kicker}</p>
+          <h2 className="section-title mt-3">{copy.services.title[0]}<br />{copy.services.title[1]}</h2>
           <p className="section-lede mt-5">
-            Jede Leistung hat ihren eigenen Charakter. Klicken Sie auf eine
-            Leistung, wenn Sie dazu ein Angebot möchten.
+            {copy.services.lede}
           </p>
         </Reveal>
 
         <Reveal className="mt-12">
           <div className="-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-3 sm:mx-0 sm:grid sm:grid-cols-2 sm:overflow-visible sm:px-0 sm:pb-0 xl:grid-cols-4">
-            {services.map(service => (
+            {items.map(service => (
               <div key={service.id} className="h-full w-[80vw] shrink-0 snap-start sm:w-auto sm:min-w-0">
                 <a
                   href="#kontakt"
                   onClick={() => onSelectService(service.title)}
                   className="service-chip paint-field h-full"
                   style={{ backgroundColor: service.color, color: service.text }}
-                  aria-label={`${service.title} anfragen`}
+                  aria-label={`${service.title} – ${copy.services.request}`}
                 >
                   <div className="relative aspect-[4/3] w-full overflow-hidden">
                     <img
@@ -132,7 +126,7 @@ export default function Leistungen({ onSelectService = () => {} }) {
                       {service.desc}
                     </p>
                     <span className="mt-5 inline-block text-[0.78rem] font-bold underline underline-offset-4 opacity-90">
-                      Anfragen
+                      {copy.services.request}
                     </span>
                   </div>
                 </a>

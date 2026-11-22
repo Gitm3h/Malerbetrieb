@@ -1,27 +1,23 @@
 import { useEffect, useRef, useState } from 'react'
+import LanguageSwitch from './LanguageSwitch'
+import { useLanguage } from '../i18n'
 
-const links = [
-  { label: 'Leistungen', href: '#leistungen' },
-  { label: 'Referenzen', href: '#referenzen' },
-  { label: 'Über uns', href: '#ueber-uns' },
-  { label: 'Projekt', href: '#projekt' },
-]
-
-function Wordmark({ tone = 'chalk' }) {
+function Wordmark({ tone = 'chalk', brand }) {
   return (
     <span className="flex items-center gap-2.5">
       <span className="swatch-bar" aria-hidden="true">
         <span /><span /><span />
       </span>
       <span className={`font-display text-[1.05rem] font-semibold leading-none ${tone === 'chalk' ? 'text-chalk' : 'text-ink'}`}>
-        Malerbetrieb<br />
-        <span className="italic font-normal">Schmidt</span>
+        {brand.name}<br />
+        <span className="italic font-normal">{brand.sub}</span>
       </span>
     </span>
   )
 }
 
 export default function Navbar() {
+  const { copy } = useLanguage()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const sheetRef = useRef(null)
@@ -93,13 +89,13 @@ export default function Navbar() {
           <a
             href="#hero"
             className="shrink-0"
-            aria-label="Malerbetrieb Schmidt – zum Seitenanfang"
+            aria-label={copy.brand.homeLabel}
           >
-            <Wordmark tone={tone} />
+            <Wordmark tone={tone} brand={copy.brand} />
           </a>
 
-          <nav className="hidden items-center gap-7 md:flex" aria-label="Hauptnavigation">
-            {links.map(link => (
+          <nav className="hidden items-center gap-4 lg:flex xl:gap-7" aria-label={copy.nav.aria}>
+            {copy.nav.links.map(link => (
               <a
                 key={link.href}
                 href={link.href}
@@ -108,18 +104,19 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <a href="#kontakt" className="btn-primary ml-1 !min-h-[42px] !px-4 !py-2 !text-sm">
-              Anfragen
+            <LanguageSwitch tone={scrolled ? 'ink' : 'chalk'} />
+            <a href="#kontakt" className="btn-primary ml-1 !min-h-[42px] !px-3 !py-2 !text-xs xl:!px-4 xl:!text-sm">
+              {copy.nav.cta}
             </a>
           </nav>
 
           <button
             ref={triggerRef}
             type="button"
-            className={`-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-md md:hidden ${
+            className={`-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-md lg:hidden ${
               scrolled ? 'text-ink' : 'text-chalk'
             }`}
-            aria-label="Menü öffnen"
+            aria-label={copy.nav.menuOpen}
             aria-expanded={menuOpen}
             aria-controls="mobile-navigation"
             onClick={() => setMenuOpen(true)}
@@ -139,17 +136,17 @@ export default function Navbar() {
           id="mobile-navigation"
           role="dialog"
           aria-modal="true"
-          aria-label="Navigation"
+          aria-label={copy.nav.sheet}
           className="mobile-sheet fixed inset-0 z-[120] flex flex-col bg-chalk"
         >
           <div className="container-main flex h-16 items-center justify-between">
-            <a href="#hero" onClick={() => setMenuOpen(false)} aria-label="Malerbetrieb Schmidt – zum Seitenanfang">
-              <Wordmark tone="ink" />
+            <a href="#hero" onClick={() => setMenuOpen(false)} aria-label={copy.brand.homeLabel}>
+              <Wordmark tone="ink" brand={copy.brand} />
             </a>
             <button
               type="button"
               className="-mr-2 inline-flex h-11 w-11 items-center justify-center rounded-md text-ink"
-              aria-label="Menü schließen"
+              aria-label={copy.nav.menuClose}
               onClick={() => setMenuOpen(false)}
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
@@ -159,9 +156,9 @@ export default function Navbar() {
             </button>
           </div>
 
-          <nav className="container-main flex-1 pt-8" aria-label="Mobile Navigation">
+          <nav className="container-main flex-1 pt-8" aria-label={copy.nav.mobileAria}>
             <ul className="space-y-1">
-              {links.map(link => (
+              {copy.nav.links.map(link => (
                 <li key={link.href} className="border-b border-ink/15">
                   <a
                     href={link.href}
@@ -177,14 +174,18 @@ export default function Navbar() {
           </nav>
 
           <div className="container-main space-y-3 pb-10">
+            <div className="flex items-center justify-between gap-4">
+              <span className="text-xs font-semibold text-ink/60">{copy.language.label}</span>
+              <LanguageSwitch tone="ink" />
+            </div>
             <a href="tel:04012345467" className="btn-ghost w-full">
-              040 – 1234567
+              {copy.nav.phone}
             </a>
             <a href="#kontakt" onClick={() => setMenuOpen(false)} className="btn-primary w-full">
-              Kostenlos anfragen
+              {copy.nav.freeCta}
             </a>
             <p className="pt-1 text-center text-xs text-ink/60">
-              Mo–Fr 7–17 Uhr · Sa 8–13 Uhr
+              {copy.nav.hours}
             </p>
           </div>
         </div>

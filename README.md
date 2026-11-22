@@ -3,6 +3,7 @@
 A fictional Hamburg painting company, built as a responsive frontend and UI-design portfolio project.
 
 **Live demo:** [my-nuzl291ofg.brewpage.app](https://my-nuzl291ofg.brewpage.app/)  
+**English demo:** [my-nuzl291ofg.brewpage.app/en/](https://my-nuzl291ofg.brewpage.app/en/)  
 **Repository:** [github.com/Gitm3h/Malerbetrieb](https://github.com/Gitm3h/Malerbetrieb)  
 **Design spec:** [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md)
 
@@ -16,6 +17,7 @@ Malerbetrieb Schmidt is a **fictional business**. The site demonstrates:
 
 - Art direction for a trade business without the usual stock-photo template look.
 - Responsive layouts from 320px to wide desktop.
+- Full German and English static routes with a visible DE/EN switch.
 - A seven-colour, interactive pigment deck in the hero.
 - Before/after comparison with pointer, touch, and keyboard control.
 - A scrollable review strip with auto-scroll and hover/focus pause.
@@ -37,6 +39,8 @@ The transparency section is part of the live page at `#projekt`, not hidden in t
 - React 19
 - Vite 8
 - Tailwind CSS 4
+- Vite multi-page build
+- Central German/English copy dictionaries
 - Plain CSS for the wave, deck, reviews, and whoosh
 - Semantic HTML, focus management, reduced-motion support
 - No UI framework, no carousel library, no runtime animation dependency
@@ -57,6 +61,8 @@ The AI did not invent a real client, a real project, or real testimonials. The s
 ## Features
 
 - Responsive hero with a seven-colour fanned pigment deck.
+- German `/` and English `/en/` pages sharing one component tree.
+- DE/EN switch in the desktop nav, mobile sheet, and footer.
 - Deck closes, reorders, and reopens like a magician’s fan; hover draws a card out.
 - Accessible before/after slider with keyboard, pointer, and touch support.
 - Service cards linked to a preselected enquiry.

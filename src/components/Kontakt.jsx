@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import Reveal from './Reveal'
-
-const OBJEKTARTEN = ['Wohnung', 'Einfamilienhaus', 'Gewerbe', 'Außenbereich']
+import { useLanguage } from '../i18n'
 
 const EMPTY_FORM = {
   name: '',
@@ -12,20 +11,21 @@ const EMPTY_FORM = {
   nachricht: '',
 }
 
-function validate(form) {
+function validate(form, messages) {
   const errors = {}
-  if (form.name.trim().length < 2) errors.name = 'Bitte geben Sie Ihren Namen an.'
+  if (form.name.trim().length < 2) errors.name = messages.name
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(form.email.trim())) {
-    errors.email = 'Bitte geben Sie eine gültige E-Mail-Adresse an.'
+    errors.email = messages.email
   }
-  if (!form.objektart) errors.objektart = 'Bitte wählen Sie eine Objektart.'
+  if (!form.objektart) errors.objektart = messages.objectType
   if (form.nachricht.trim().length < 10) {
-    errors.nachricht = 'Bitte beschreiben Sie kurz, was gestrichen werden soll.'
+    errors.nachricht = messages.message
   }
   return errors
 }
 
 export default function Kontakt({ selectedService = null }) {
+  const { copy } = useLanguage()
   const [form, setForm] = useState(EMPTY_FORM)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState(null)
@@ -54,7 +54,7 @@ export default function Kontakt({ selectedService = null }) {
   const handleBlur = event => {
     const { name } = event.target
     if (!name || !['name', 'email', 'objektart', 'nachricht'].includes(name)) return
-    const fieldErrors = validate(form)
+    const fieldErrors = validate(form, copy.contact.errors)
     if (fieldErrors[name]) {
       setErrors(current => ({ ...current, [name]: fieldErrors[name] }))
     }
@@ -62,7 +62,7 @@ export default function Kontakt({ selectedService = null }) {
 
   const handleSubmit = event => {
     event.preventDefault()
-    const nextErrors = validate(form)
+    const nextErrors = validate(form, copy.contact.errors)
     if (Object.keys(nextErrors).length) {
       setErrors(nextErrors)
       const first = ['name', 'email', 'objektart', 'nachricht'].find(key => nextErrors[key])
@@ -77,16 +77,16 @@ export default function Kontakt({ selectedService = null }) {
   const describedBy = key => (errors[key] ? `${key}-error` : undefined)
 
   return (
-    <section id="kontakt" className="bg-chalk py-20 sm:py-24 lg:py-28" aria-label="Kontaktformular und Kontaktdaten">
+    <section id="kontakt" className="bg-chalk py-20 sm:py-24 lg:py-28" aria-label={copy.contact.aria}>
       <div className="container-main">
         <Reveal className="max-w-2xl">
-          <p className="kicker">Jetzt anfragen</p>
-          <h2 className="section-title mt-3">Was soll gestrichen werden?</h2>
+          <p className="kicker">{copy.contact.kicker}</p>
+          <h2 className="section-title mt-3">{copy.contact.title}</h2>
           <p className="section-lede mt-5">
-            Kostenloser Kostenvoranschlag. Wir melden uns innerhalb von 24 Stunden.
+            {copy.contact.lede}
           </p>
           <p className="mt-3 text-xs leading-relaxed text-ink/50">
-            Demo-Formular: Es wird keine Nachricht versendet und nichts gespeichert.
+            {copy.contact.demoNote}
           </p>
         </Reveal>
 
@@ -108,11 +108,10 @@ export default function Kontakt({ selectedService = null }) {
                   tabIndex={-1}
                   className="mt-5 font-display text-2xl font-semibold text-ink outline-none"
                 >
-                  Vielen Dank. Ihre Anfrage ist angekommen.
+                  {copy.contact.successTitle}
                 </h3>
                 <p className="mt-2 max-w-[44ch] text-ink/70">
-                  Wir prüfen die Angaben und melden uns innerhalb eines Werktags mit
-                  einem Termin oder einer Rückfrage.
+                  {copy.contact.successBody}
                 </p>
                 <button
                   type="button"
@@ -123,7 +122,7 @@ export default function Kontakt({ selectedService = null }) {
                     setStatus(null)
                   }}
                 >
-                  Weitere Anfrage stellen
+                  {copy.contact.again}
                 </button>
               </div>
             ) : (
@@ -137,7 +136,7 @@ export default function Kontakt({ selectedService = null }) {
                 {activeService && (
                   <div className="mb-5 flex flex-wrap items-center justify-between gap-3 border-l-4 border-ultramarine bg-ultramarine/5 px-3 py-2.5">
                     <p className="text-sm text-ink">
-                      <span className="text-ink/60">Anfrage:</span>{' '}
+                      <span className="text-ink/60">{copy.contact.selected}</span>{' '}
                       <strong>{activeService}</strong>
                     </p>
                     <button
@@ -145,7 +144,7 @@ export default function Kontakt({ selectedService = null }) {
                       onClick={() => setDismissedServiceAt(selectedService?.at ?? null)}
                       className="text-xs font-bold text-ultramarine underline underline-offset-4 hover:text-ink"
                     >
-                      Entfernen
+                      {copy.contact.remove}
                     </button>
                   </div>
                 )}
@@ -154,7 +153,7 @@ export default function Kontakt({ selectedService = null }) {
                 <div className="grid gap-5 sm:grid-cols-2">
                   <div>
                     <label htmlFor="name" className="field-label">
-                      Name <span className="text-madder" aria-hidden="true">*</span>
+                      {copy.contact.fields.name} <span className="text-madder" aria-hidden="true">*</span>
                     </label>
                     <input
                       id="name"
@@ -162,7 +161,7 @@ export default function Kontakt({ selectedService = null }) {
                       type="text"
                       autoComplete="name"
                       required
-                      placeholder="Max Mustermann"
+                      placeholder={copy.contact.placeholders.name}
                       value={form.name}
                       onChange={handleChange}
                       className="field-input"
@@ -174,7 +173,7 @@ export default function Kontakt({ selectedService = null }) {
 
                   <div>
                     <label htmlFor="email" className="field-label">
-                      E-Mail <span className="text-madder" aria-hidden="true">*</span>
+                      {copy.contact.fields.email} <span className="text-madder" aria-hidden="true">*</span>
                     </label>
                     <input
                       id="email"
@@ -182,7 +181,7 @@ export default function Kontakt({ selectedService = null }) {
                       type="email"
                       autoComplete="email"
                       required
-                      placeholder="max@beispiel.de"
+                      placeholder={copy.contact.placeholders.email}
                       value={form.email}
                       onChange={handleChange}
                       className="field-input"
@@ -193,13 +192,13 @@ export default function Kontakt({ selectedService = null }) {
                   </div>
 
                   <div>
-                    <label htmlFor="telefon" className="field-label">Telefon</label>
+                    <label htmlFor="telefon" className="field-label">{copy.contact.fields.phone}</label>
                     <input
                       id="telefon"
                       name="telefon"
                       type="tel"
                       autoComplete="tel"
-                      placeholder="040 – …"
+                      placeholder={copy.contact.placeholders.phone}
                       value={form.telefon}
                       onChange={handleChange}
                       className="field-input"
@@ -208,7 +207,7 @@ export default function Kontakt({ selectedService = null }) {
 
                   <div>
                     <label htmlFor="objektart" className="field-label">
-                      Objektart <span className="text-madder" aria-hidden="true">*</span>
+                      {copy.contact.fields.objectType} <span className="text-madder" aria-hidden="true">*</span>
                     </label>
                     <select
                       id="objektart"
@@ -220,8 +219,8 @@ export default function Kontakt({ selectedService = null }) {
                       aria-invalid={Boolean(errors.objektart)}
                       aria-describedby={describedBy('objektart')}
                     >
-                      <option value="" disabled>Bitte wählen</option>
-                      {OBJEKTARTEN.map(item => (
+                      <option value="" disabled>{copy.contact.choose}</option>
+                      {copy.contact.objectTypes.map(item => (
                         <option key={item} value={item}>{item}</option>
                       ))}
                     </select>
@@ -229,14 +228,14 @@ export default function Kontakt({ selectedService = null }) {
                   </div>
 
                   <div className="sm:col-span-2">
-                    <label htmlFor="flaeche" className="field-label">Fläche in m²</label>
+                    <label htmlFor="flaeche" className="field-label">{copy.contact.fields.area}</label>
                     <input
                       id="flaeche"
                       name="flaeche"
                       type="number"
                       min="1"
                       inputMode="numeric"
-                      placeholder="z. B. 60"
+                      placeholder={copy.contact.placeholders.area}
                       value={form.flaeche}
                       onChange={handleChange}
                       className="field-input"
@@ -245,14 +244,14 @@ export default function Kontakt({ selectedService = null }) {
 
                   <div className="sm:col-span-2">
                     <label htmlFor="nachricht" className="field-label">
-                      Nachricht <span className="text-madder" aria-hidden="true">*</span>
+                      {copy.contact.fields.message} <span className="text-madder" aria-hidden="true">*</span>
                     </label>
                     <textarea
                       id="nachricht"
                       name="nachricht"
                       required
                       rows={5}
-                      placeholder="Was soll gestrichen werden? Wann wäre ein guter Termin?"
+                      placeholder={copy.contact.placeholders.message}
                       value={form.nachricht}
                       onChange={handleChange}
                       className="field-input resize-y"
@@ -275,32 +274,31 @@ export default function Kontakt({ selectedService = null }) {
                         <circle cx="12" cy="12" r="10" strokeOpacity="0.3" />
                         <path d="M12 2a10 10 0 0 1 10 10" />
                       </svg>
-                      Wird gesendet …
+                      {copy.contact.sending}
                     </>
                   ) : (
-                    'Anfrage absenden'
+                    copy.contact.submit
                   )}
                 </button>
 
                 <p className="mt-3 text-center text-xs leading-relaxed text-ink/60">
-                  Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zum Zweck
-                  der Angebotsbearbeitung zu.
+                  {copy.contact.privacy}
                 </p>
               </form>
             )}
           </Reveal>
 
           <Reveal className="lg:col-span-5" delay={140}>
-            <aside className="space-y-6" aria-label="Kontaktdaten">
+            <aside className="space-y-6" aria-label={copy.contact.aria}>
               <div className="bg-ultramarine p-6 text-white">
-                <p className="text-xs font-bold tracking-[0.04em] text-white/90">Telefon</p>
+                <p className="text-xs font-bold tracking-[0.04em] text-white/90">{copy.contact.phoneLabel}</p>
                 <a
                   href="tel:04012345467"
                   className="mt-3 block font-display text-[clamp(1.9rem,4vw,2.5rem)] font-semibold leading-none text-white hover:text-saffron"
                 >
-                  040 – 1234567
+                  {copy.nav.phone}
                 </a>
-                <p className="mt-3 text-sm text-white/85">Klicken zum Anrufen. Mo–Fr 7–17 Uhr.</p>
+                <p className="mt-3 text-sm text-white/85">{copy.contact.phoneNote}</p>
               </div>
 
               <div className="border-t border-ink/20 pt-5">
@@ -309,12 +307,15 @@ export default function Kontakt({ selectedService = null }) {
                     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0Z" />
                     <circle cx="12" cy="10" r="3" />
                   </svg>
-                  <p className="text-sm font-bold text-ink">Adresse</p>
+                  <p className="text-sm font-bold text-ink">{copy.contact.addressLabel}</p>
                 </div>
                 <address className="mt-3 not-italic text-sm leading-relaxed text-ink/75">
-                  Malerbetrieb Schmidt<br />
-                  Musterstraße 12<br />
-                  22113 Hamburg
+                  {copy.contact.address.map((line, index) => (
+                    <span key={line}>
+                      {line}
+                      {index < copy.contact.address.length - 1 && <br />}
+                    </span>
+                  ))}
                 </address>
               </div>
 
@@ -324,14 +325,10 @@ export default function Kontakt({ selectedService = null }) {
                     <circle cx="12" cy="12" r="10" />
                     <polyline points="12 6 12 12 16 14" />
                   </svg>
-                  <p className="text-sm font-bold text-ink">Öffnungszeiten</p>
+                  <p className="text-sm font-bold text-ink">{copy.contact.hoursLabel}</p>
                 </div>
                 <dl className="mt-3 space-y-1.5 text-sm">
-                  {[
-                    ['Montag – Freitag', '7:00 – 17:00 Uhr'],
-                    ['Samstag', '8:00 – 13:00 Uhr'],
-                    ['Sonntag', 'Geschlossen'],
-                  ].map(([day, time]) => (
+                  {copy.contact.hours.map(([day, time]) => (
                     <div key={day} className="flex justify-between gap-4">
                       <dt className="text-ink/70">{day}</dt>
                       <dd className="text-right font-semibold text-ink">{time}</dd>

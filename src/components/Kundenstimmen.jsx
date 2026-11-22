@@ -1,54 +1,12 @@
 import { useEffect, useRef } from 'react'
 import Reveal from './Reveal'
+import { useLanguage } from '../i18n'
 
-const reviews = [
-  {
-    name: 'Katrin M.',
-    meta: 'Wohnzimmer · Ottensen',
-    date: 'vor 2 Wochen',
-    color: '#1F6F61',
-    text: 'Drei Angebote eingeholt, hier war die Beratung am klarsten. Am Ende haben wir genau den Farbton bekommen, den wir uns vorgestellt hatten.',
-  },
-  {
-    name: 'Daniel R.',
-    meta: 'Fassade · Bahrenfeld',
-    date: 'vor 1 Monat',
-    color: '#2C4BDF',
-    text: 'Pünktlich, sauber und ohne Überraschungen auf der Rechnung. Das Gerüst stand morgens, abends war die Baustelle aufgeräumt.',
-  },
-  {
-    name: 'Aylin K.',
-    meta: 'Altbau · Altona',
-    date: 'vor 1 Monat',
-    color: '#B02A4A',
-    text: 'Hohe Decken, alte Türen, viele Ecken. Das Team hat ruhig und präzise gearbeitet. Die Kanten sind wirklich perfekt geworden.',
-  },
-  {
-    name: 'Sven B.',
-    meta: 'Treppenhaus · Eimsbüttel',
-    date: 'vor 2 Monaten',
-    color: '#F3A712',
-    text: 'Absprachen per Telefon und kurze Wege. Die Nachbarn waren zufrieden, weil jeden Tag klar war, wann es weitergeht.',
-  },
-  {
-    name: 'Marta L.',
-    meta: 'Küche · St. Pauli',
-    date: 'vor 3 Monaten',
-    color: '#1F6F61',
-    text: 'Die Farbberatung war Gold wert. Aus drei Mustern wurde ein Ton, der morgens und abends verschieden wirkt. Genau das wollten wir.',
-  },
-  {
-    name: 'Jonas H.',
-    meta: 'Büro · HafenCity',
-    date: 'vor 4 Monaten',
-    color: '#2C4BDF',
-    text: 'Unser Büro wurde an zwei Wochenenden gestrichen, ohne den Betrieb aufzuhalten. Am Montag war alles fertig und sauber.',
-  },
-]
+const reviewColors = ['#1F6F61', '#2C4BDF', '#B02A4A', '#F3A712', '#1F6F61', '#2C4BDF']
 
-function Stars() {
+function Stars({ label }) {
   return (
-    <span className="flex items-center gap-0.5" aria-label="5 von 5 Sternen">
+    <span className="flex items-center gap-0.5" aria-label={label}>
       {Array.from({ length: 5 }, (_, i) => (
         <svg key={i} viewBox="0 0 20 20" className="h-3.5 w-3.5 fill-saffron" aria-hidden="true">
           <path d="m10 1.7 2.47 5.01 5.53.8-4 3.9.94 5.51L10 14.32l-4.94 2.6.94-5.51-4-3.9 5.53-.8L10 1.7Z" />
@@ -58,7 +16,7 @@ function Stars() {
   )
 }
 
-function ReviewCard({ review, hidden = false }) {
+function ReviewCard({ review, copy, hidden = false }) {
   return (
     <article
       className="review-card flex w-[min(82vw,21rem)] shrink-0 flex-col border border-ink/15 bg-paper p-5 sm:p-6"
@@ -84,7 +42,7 @@ function ReviewCard({ review, hidden = false }) {
       </div>
 
       <div className="mt-4 flex items-center gap-2">
-        <Stars />
+        <Stars label={copy.reviews.stars} />
         <span className="text-[0.68rem] text-ink/50">{review.date}</span>
       </div>
 
@@ -96,6 +54,8 @@ function ReviewCard({ review, hidden = false }) {
 }
 
 export default function Kundenstimmen() {
+  const { copy } = useLanguage()
+  const reviews = copy.reviews.items.map((review, index) => ({ ...review, color: reviewColors[index] }))
   const viewportRef = useRef(null)
   const pausedRef = useRef(false)
   const dragRef = useRef({ active: false, startX: 0, startScroll: 0, pointerId: null })
@@ -192,17 +152,17 @@ export default function Kundenstimmen() {
       <div className="container-main">
         <Reveal className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div className="max-w-2xl">
-            <p className="kicker">Fiktive Google-Rezensionen</p>
+            <p className="kicker">{copy.reviews.kicker}</p>
             <h2 id="bewertungen-title" className="mt-3 font-display text-[clamp(2rem,4.5vw,3.3rem)] font-semibold leading-[1.02]">
-              Nach dem Anstrich bleibt der Eindruck.
+              {copy.reviews.title}
             </h2>
           </div>
 
           <div className="flex items-center gap-4 border-l-2 border-saffron pl-4">
-            <span className="font-display text-4xl font-semibold leading-none">5,0</span>
+            <span className="font-display text-4xl font-semibold leading-none">{copy.reviews.rating}</span>
             <span>
-              <Stars />
-              <span className="mt-1.5 block text-xs text-ink/60">aus 27 Bewertungen</span>
+              <Stars label={copy.reviews.stars} />
+              <span className="mt-1.5 block text-xs text-ink/60">{copy.reviews.count}</span>
             </span>
           </div>
         </Reveal>
@@ -213,7 +173,7 @@ export default function Kundenstimmen() {
         className="review-marquee mt-10 sm:mt-12"
         role="region"
         tabIndex={0}
-        aria-label="Kundenbewertungen – seitlich scrollbar"
+        aria-label={copy.reviews.region}
         onPointerEnter={pause}
         onPointerLeave={onPointerLeave}
         onFocus={pause}
@@ -226,12 +186,12 @@ export default function Kundenstimmen() {
         <div className="review-track">
           <div className="review-group">
             {reviews.map(review => (
-              <ReviewCard key={review.name} review={review} />
+              <ReviewCard key={review.name} review={review} copy={copy} />
             ))}
           </div>
           <div className="review-group" aria-hidden="true">
             {reviews.map(review => (
-              <ReviewCard key={`${review.name}-copy`} review={review} hidden />
+              <ReviewCard key={`${review.name}-copy`} review={review} copy={copy} hidden />
             ))}
           </div>
         </div>

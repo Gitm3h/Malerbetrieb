@@ -2,8 +2,8 @@
 
 Status: implemented and deployed  
 Last updated: 2026-11-22  
-Scope: full-site visual and interaction redesign of `maler-schmidt-app`, German content retained  
-Non-goals: backend/contact-form delivery, CMS, e-commerce, new page routes, real client photography
+Scope: full-site visual and interaction redesign of `maler-schmidt-app`, German and English content  
+Non-goals: backend/contact-form delivery, CMS, e-commerce, real client photography
 
 Living document: update this file whenever a section, interaction, asset, or deployment detail changes.
 
@@ -149,7 +149,7 @@ Alignment: left-aligned content throughout. Only the “Referenzen” section he
 1. **Color is structure.** Pigment fields carry services, projects, and statistics. Color is not a wash behind white cards.
 2. **One loud moment.** The moving wave is the only large continuous animation. Everything else is quiet, typographic, and still until the visitor acts.
 3. **Paint-sample materiality.** Square corners, thin rules, paper/paint texture, and real hex values. Avoid the rounded-card SaaS kit.
-4. **Trade credibility over art-school posturing.** Plain German, real numbers, clear prices/next steps. No manifesto copy.
+4. **Trade credibility over art-school posturing.** Plain German or English, real numbers, clear next steps. No manifesto copy.
 5. **Accessible by construction.** Contrast, focus, keyboard, and reduced motion are part of the design, not a later pass.
 
 ### 2.5 Review against the generic default
@@ -170,6 +170,15 @@ What changed after review:
 - The first services draft used four rounded cards with icons. Changed to a paint-chip rack, which gives the colors a job.
 - The first motion draft animated every section on scroll. Reduced to the wave plus one hero sequence and a few reveal-once headers.
 
+### 2.6 Localization
+
+- Two static routes share one component tree: `/` is German, `/en/` is English.
+- All visible copy lives in `src/content/de.js` and `src/content/en.js`; components never hardcode user-facing strings.
+- `src/main.jsx` reads `data-locale` from `#root`, wraps the app in `LanguageProvider`, and sets `<html lang>`.
+- Every page has a language switch in the desktop nav, the mobile sheet, and the footer. Active language is a non-focusable `span`; the other language is a link with `hrefLang`.
+- Switch links are route-relative: German uses `./en/`, English uses `../`. This works at a domain root and under the GitHub Pages project path.
+- No runtime translation library. No client-side language detection; the URL is the source of truth.
+
 ---
 
 ## 3. Section specification
@@ -180,6 +189,7 @@ What changed after review:
 - Transparent over hero; after 40px scroll, chalk glass with `backdrop-filter: blur(14px) saturate(150%)`, hairline `rgba(8,37,39,.14)`.
 - Left: three 6×18px vertical swatches (ultramarine, saffron, verdigris) + wordmark.
 - Desktop links: Leistungen, Referenzen, Über uns, Projekt; 15px Karla 500; hover underline drawn from left, 180ms.
+- Language switch: compact DE/EN bordered control before the CTA. Active language is filled ink; inactive is a link. Repeated in the mobile sheet and footer.
 - CTA: “Anfragen”, saffron background, ink text, 10px radius (the only rounded button), no shadow. Same target as the old Kontakt link; Kontakt is not duplicated in the nav.
 - Mobile: full-screen sheet from the top, chalk ground, Fraunces links at `clamp(2rem, 9vw, 3rem)`, contact CTA at the bottom. Body scroll locked, Escape closes, focus returns to the trigger, focus trapped inside the sheet.
 
@@ -481,7 +491,7 @@ Proposed key copy:
 - Contact H2: “Was soll gestrichen werden?”
 - CTA labels stay literal: “Kostenlos anfragen”, “Anfrage absenden”, “Jetzt anrufen”.
 
-German only. No English microcopy except paint names and hex values. Use “Sie”, not “du”.
+German and English. No untranslated UI microcopy. German uses “Sie”, not “du”. English uses plain, professional US spelling. Paint names and hex values are localized where the color name changes: Kreide → Chalk, Safran → Saffron, Koralle → Coral.
 
 ---
 

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Reveal from './Reveal'
+import { useLanguage } from '../i18n'
 import lqip from '../assets/referenzen/lqip.json'
 import wohnzimmerBefore from '../assets/referenzen/case-wohnzimmer-before.webp'
 import wohnzimmerAfter from '../assets/referenzen/case-wohnzimmer-after.webp'
@@ -14,55 +15,38 @@ import kuecheAfter from '../assets/referenzen/case-kueche-after-v2.webp'
 import kuecheBefore800 from '../assets/referenzen/case-kueche-before-800.webp'
 import kuecheAfter800 from '../assets/referenzen/case-kueche-after-v2-800.webp'
 
-const projects = [
+const projectVisuals = [
   {
     id: 'wohnzimmer',
-    label: 'Wohnzimmer',
-    district: 'Altona',
-    scope: 'Wände',
     pigment: '#1F6F61',
-    paintName: 'Salbeigrün',
     paintHex: '#9FB3A1',
     before: wohnzimmerBefore,
     before800: wohnzimmerBefore800,
     after: wohnzimmerAfter,
     after800: wohnzimmerAfter800,
-    beforeAlt: 'Wohnzimmer mit abblätternder weißer Wandfarbe vor dem Anstrich',
-    afterAlt: 'Dasselbe Wohnzimmer mit frisch gestrichenen salbeigrünen Wänden',
   },
   {
     id: 'schlafzimmer',
-    label: 'Schlafzimmer',
-    district: 'Ottensen',
-    scope: 'Wände',
     pigment: '#2C4BDF',
-    paintName: 'Taubenblau',
     paintHex: '#7E9DB5',
     before: schlafzimmerBefore,
     before800: schlafzimmerBefore800,
     after: schlafzimmerAfter,
     after800: schlafzimmerAfter800,
-    beforeAlt: 'Schlafzimmer mit weißen Wänden vor dem Anstrich',
-    afterAlt: 'Dasselbe Schlafzimmer mit frisch gestrichenen taubenblauen Wänden',
   },
   {
     id: 'kueche',
-    label: 'Küche',
-    district: 'Bahrenfeld',
-    scope: 'Wände, Fliesen und Küchenfronten',
     pigment: '#B02A4A',
-    paintName: 'Kreideweiß',
     paintHex: '#EFE7D6',
     before: kuecheBefore,
     before800: kuecheBefore800,
     after: kuecheAfter,
     after800: kuecheAfter800,
-    beforeAlt: 'Küche mit vergilbten Wänden, alten Fliesen und abgenutzten Fronten',
-    afterAlt: 'Dieselbe Küche mit frisch gestrichenen Wänden, neuen Fliesen und aufgearbeiteten Fronten',
   },
 ]
 
 function BeforeAfter({ project, position, setPosition, stopHint, onInteract }) {
+  const { copy } = useLanguage()
   const boardRef = useRef(null)
 
   const positionFromClientX = useCallback(clientX => {
@@ -109,11 +93,11 @@ function BeforeAfter({ project, position, setPosition, stopHint, onInteract }) {
       style={{ backgroundImage: `url(${lqip[project.id].lqip})`, backgroundSize: 'cover' }}
       role="slider"
       tabIndex={0}
-      aria-label={`Vorher-Nachher-Vergleich ${project.label}: ${project.beforeAlt}. Nachher: ${project.afterAlt}`}
+      aria-label={copy.references.sliderAria(project)}
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={Math.round(position)}
-      aria-valuetext={`${Math.round(position)} Prozent Vorher, ${100 - Math.round(position)} Prozent Nachher`}
+      aria-valuetext={copy.references.valueText(Math.round(position))}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onKeyDown={onKeyDown}
@@ -141,10 +125,10 @@ function BeforeAfter({ project, position, setPosition, stopHint, onInteract }) {
           draggable={false}
           loading="lazy"
         />
-        <span className="ba-label ba-label--after">Nachher</span>
+        <span className="ba-label ba-label--after">{copy.references.after}</span>
       </div>
 
-      <span className="ba-label ba-label--before">Vorher</span>
+      <span className="ba-label ba-label--before">{copy.references.before}</span>
 
       <div className="ba-divider" style={{ left: `${position}%` }} aria-hidden="true" />
       <div className="ba-handle" style={{ left: `${position}%` }} aria-hidden="true">
@@ -158,6 +142,11 @@ function BeforeAfter({ project, position, setPosition, stopHint, onInteract }) {
 }
 
 export default function Referenzen() {
+  const { copy } = useLanguage()
+  const projects = copy.references.items.map(item => ({
+    ...projectVisuals.find(project => project.id === item.id),
+    ...item,
+  }))
   const [activeId, setActiveId] = useState(projects[0].id)
   const [position, setPosition] = useState(50)
   const hintDone = useRef(false)
@@ -212,19 +201,18 @@ export default function Referenzen() {
   }
 
   return (
-    <section id="referenzen" className="bg-chalk-2 py-20 sm:py-24 lg:py-28" aria-label="Referenzen – Vorher und Nachher">
+    <section id="referenzen" className="bg-chalk-2 py-20 sm:py-24 lg:py-28" aria-label={copy.references.aria}>
       <div className="container-main">
         <Reveal className="max-w-3xl">
-          <p className="kicker">Beispielhafte Wirkung</p>
-          <h2 className="section-title mt-3">Vorher. Nachher.<br />So wirkt Farbe.</h2>
+          <p className="kicker">{copy.references.kicker}</p>
+          <h2 className="section-title mt-3">{copy.references.title[0]}<br />{copy.references.title[1]}</h2>
           <p className="section-lede mt-5">
-            Ziehen Sie den Regler oder nutzen Sie die Pfeiltasten. Links der alte
-            Zustand, rechts das Ergebnis.
+            {copy.references.lede}
           </p>
         </Reveal>
 
-        <div className="mt-8 flex flex-wrap items-center gap-2" role="group" aria-label="Beispiel wählen">
-          <span className="mr-1 text-xs font-semibold text-ink/60">Beispiele</span>
+        <div className="mt-8 flex flex-wrap items-center gap-2" role="group" aria-label={copy.references.choose}>
+          <span className="mr-1 text-xs font-semibold text-ink/60">{copy.references.examples}</span>
           {projects.map(project => {
             const isActive = project.id === active.id
             return (
@@ -271,7 +259,7 @@ export default function Referenzen() {
               </div>
               <div className="flex flex-wrap items-center gap-2 text-sm text-ink/70">
                 <span className="border border-ink/25 px-2 py-0.5 text-[0.65rem] font-bold tracking-[0.04em] text-ink/60">
-                  KI-Illustration
+                  {copy.references.ai}
                 </span>
                 <span
                   className="h-3.5 w-3.5 border border-ink/25"
@@ -287,8 +275,7 @@ export default function Referenzen() {
         </Reveal>
 
         <p className="mx-auto mt-6 max-w-[1040px] text-xs leading-relaxed text-ink/60">
-          KI-generierte Illustration – keine abgeschlossenen Kundenprojekte.
-          Die gezeigten Räume sind keine realen Aufträge.
+          {copy.references.note}
         </p>
       </div>
     </section>

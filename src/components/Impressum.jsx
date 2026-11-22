@@ -1,6 +1,9 @@
 import { useEffect, useRef } from 'react'
+import { useLanguage } from '../i18n'
 
 export default function Impressum({ onClose }) {
+  const { copy } = useLanguage()
+  const legal = copy.legal
   const panelRef = useRef(null)
   const closeRef = useRef(null)
 
@@ -61,9 +64,9 @@ export default function Impressum({ onClose }) {
       >
         <div className="flex items-start justify-between gap-6">
           <div>
-            <p className="kicker">Rechtliches</p>
+            <p className="kicker">{legal.kicker}</p>
             <h2 id="impressum-title" className="mt-2 font-display text-3xl font-semibold text-ink">
-              Impressum &amp; Datenschutz
+              {legal.title}
             </h2>
           </div>
           <button
@@ -71,7 +74,7 @@ export default function Impressum({ onClose }) {
             type="button"
             onClick={onClose}
             className="inline-flex h-11 w-11 shrink-0 items-center justify-center border border-ink/20 text-ink hover:bg-ink hover:text-chalk"
-            aria-label="Impressum schließen"
+            aria-label={legal.closeAria}
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
               <line x1="18" y1="6" x2="6" y2="18" />
@@ -81,96 +84,88 @@ export default function Impressum({ onClose }) {
         </div>
 
         <div className="mt-6 space-y-5 text-sm leading-relaxed text-ink/80">
-          <section className="border-t border-ink/15 pt-4" aria-label="Angaben gemäß § 5 TMG">
-            <h3 className="font-semibold text-ink">Angaben gemäß § 5 TMG</h3>
+          <section className="border-t border-ink/15 pt-4" aria-label={legal.tmgHeading}>
+            <h3 className="font-semibold text-ink">{legal.tmgHeading}</h3>
             <address className="mt-1 not-italic">
-              <strong>Malerbetrieb Schmidt</strong><br />
-              Klaus Schmidt, Malermeister<br />
-              Musterstraße 12<br />
-              22113 Hamburg
+              {legal.tmgAddress.map((line, index) => (
+                <span key={line}>
+                  {index === 0 ? <strong>{line}</strong> : line}
+                  {index < legal.tmgAddress.length - 1 && <br />}
+                </span>
+              ))}
             </address>
           </section>
 
-          <section className="border-t border-ink/15 pt-4" aria-label="Kontakt">
-            <h3 className="font-semibold text-ink">Kontakt</h3>
+          <section className="border-t border-ink/15 pt-4" aria-label={legal.contactHeading}>
+            <h3 className="font-semibold text-ink">{legal.contactHeading}</h3>
             <p className="mt-1">
-              Telefon:{' '}
+              {legal.phone}{' '}
               <a href="tel:04012345467" className="font-semibold text-ultramarine hover:underline">
-                040 – 1234567
+                {copy.nav.phone}
               </a>
             </p>
             <p>
-              E-Mail:{' '}
+              {legal.email}{' '}
               <a href="mailto:info@maler-schmidt-altona.de" className="font-semibold text-ultramarine hover:underline">
                 info@maler-schmidt-altona.de
               </a>
             </p>
           </section>
 
-          <section className="border-t border-ink/15 pt-4" aria-label="Umsatzsteuer">
-            <h3 className="font-semibold text-ink">Umsatzsteuer-ID</h3>
+          <section className="border-t border-ink/15 pt-4" aria-label={legal.vatHeading}>
+            <h3 className="font-semibold text-ink">{legal.vatHeading}</h3>
             <p className="mt-1">
-              Umsatzsteuer-Identifikationsnummer gemäß § 27 a UStG:
+              {legal.vatBody}
               <br />
-              <strong>DE 123456789</strong>
+              <strong>{legal.vatId}</strong>
             </p>
           </section>
 
-          <section className="border-t border-ink/15 pt-4" aria-label="Handwerkskammer">
-            <h3 className="font-semibold text-ink">Berufsrechtliche Angaben</h3>
+          <section className="border-t border-ink/15 pt-4" aria-label={legal.chamberHeading}>
+            <h3 className="font-semibold text-ink">{legal.chamberHeading}</h3>
             <p className="mt-1">
-              Eingetragen bei der <strong>Handwerkskammer Hamburg</strong>.<br />
-              Berufsbezeichnung: Malermeister (Deutschland)
+              {legal.chamberBody}<br />
+              {legal.chamberProfession}
             </p>
           </section>
 
-          <section className="border-t border-ink/15 pt-4" aria-label="Streitschlichtung">
-            <h3 className="font-semibold text-ink">Streitschlichtung</h3>
+          <section className="border-t border-ink/15 pt-4" aria-label={legal.disputeHeading}>
+            <h3 className="font-semibold text-ink">{legal.disputeHeading}</h3>
             <p className="mt-1">
-              Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung
-              bereit:{' '}
+              {legal.disputeIntro}{' '}
               <a
                 href="https://ec.europa.eu/consumers/odr/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-ultramarine hover:underline"
               >
-                ec.europa.eu/consumers/odr
+                {legal.disputeLink}
               </a>
             </p>
             <p className="mt-2">
-              Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor
-              einer Verbraucherschlichtungsstelle teilzunehmen.
+              {legal.disputeBody}
             </p>
           </section>
 
-          <section className="border-t border-ink/15 pt-4" aria-label="Datenschutz">
-            <h3 className="font-semibold text-ink">Datenschutz</h3>
+          <section className="border-t border-ink/15 pt-4" aria-label={legal.privacyHeading}>
+            <h3 className="font-semibold text-ink">{legal.privacyHeading}</h3>
             <p className="mt-1">
-              Verantwortlich für die Datenverarbeitung ist Malerbetrieb Schmidt,
-              Musterstraße 12, 22113 Hamburg, info@maler-schmidt-altona.de.
+              {legal.privacyResponsible}
             </p>
             <p className="mt-2">
-              Wir verarbeiten die Angaben aus dem Kontaktformular ausschließlich zur
-              Bearbeitung Ihrer Anfrage und zur Erstellung eines Angebots
-              (Art. 6 Abs. 1 lit. b DSGVO). Die Daten werden nicht an Dritte
-              weitergegeben. Sie werden gelöscht, sobald die Anfrage abgeschlossen ist
-              und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.
+              {legal.privacyBody}
             </p>
             <p className="mt-2">
-              Diese Website setzt keine Analyse- oder Marketing-Cookies. Beim Aufruf
-              der Seite können technisch notwendige Server-Logdaten anfallen.
+              {legal.privacyCookies}
             </p>
             <p className="mt-2">
-              Sie haben das Recht auf Auskunft, Berichtigung, Löschung, Einschränkung
-              der Verarbeitung, Widerspruch und Datenübertragbarkeit. Wenden Sie sich
-              dazu an die oben genannte E-Mail-Adresse.
+              {legal.privacyRights}
             </p>
           </section>
         </div>
 
         <button type="button" onClick={onClose} className="btn-primary mt-6 w-full">
-          Schließen
+          {legal.close}
         </button>
       </div>
     </div>

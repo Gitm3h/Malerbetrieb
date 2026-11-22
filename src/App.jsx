@@ -11,8 +11,10 @@ import Kontakt from './components/Kontakt'
 import Footer from './components/Footer'
 import Impressum from './components/Impressum'
 import Whoosh from './components/Whoosh'
+import { useLanguage } from './i18n'
 
 export default function App() {
+  const { copy } = useLanguage()
   const [showImpressum, setShowImpressum] = useState(false)
   const [selectedService, setSelectedService] = useState(null)
 
@@ -22,7 +24,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-chalk">
-      <a href="#main-content" className="skip-link">Zum Inhalt springen</a>
+      <a href="#main-content" className="skip-link">{copy.skip}</a>
       <Navbar />
       <main id="main-content" tabIndex={-1} className="outline-none">
         <Hero />

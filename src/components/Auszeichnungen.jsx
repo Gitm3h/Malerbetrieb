@@ -1,48 +1,13 @@
 import { useEffect, useRef } from 'react'
+import { useLanguage } from '../i18n'
 
-const badges = [
-  {
-    overline: 'Seit 1998',
-    title: 'Meisterbetrieb',
-    sub: 'Maler-Innung Hamburg',
-    color: '#F3A712',
-    text: '#082527',
-  },
-  {
-    overline: 'Kundenstimmen',
-    title: '5,0 Sterne',
-    sub: '27 Bewertungen',
-    color: '#1F6F61',
-    text: '#FFFFFF',
-  },
-  {
-    overline: 'Auszeichnung',
-    title: 'Top 2025',
-    sub: 'Hamburger Handwerk',
-    color: '#B02A4A',
-    text: '#FFFFFF',
-  },
-  {
-    overline: 'Eigenes Team',
-    title: '12 Fachkräfte',
-    sub: 'Keine Subunternehmer',
-    color: '#2C4BDF',
-    text: '#FFFFFF',
-  },
-  {
-    overline: 'Seit 1998',
-    title: '1.000+',
-    sub: 'abgeschlossene Projekte',
-    color: '#E76F51',
-    text: '#082527',
-  },
-  {
-    overline: 'Material',
-    title: 'Low-VOC',
-    sub: 'emissionsarm arbeiten',
-    color: '#A7CFC9',
-    text: '#082527',
-  },
+const badgeStyles = [
+  { color: '#F3A712', text: '#082527' },
+  { color: '#1F6F61', text: '#FFFFFF' },
+  { color: '#B02A4A', text: '#FFFFFF' },
+  { color: '#2C4BDF', text: '#FFFFFF' },
+  { color: '#E76F51', text: '#082527' },
+  { color: '#A7CFC9', text: '#082527' },
 ]
 
 function Seal({ color, text }) {
@@ -77,6 +42,8 @@ function Badge({ badge, hidden = false }) {
 }
 
 export default function Auszeichnungen() {
+  const { copy } = useLanguage()
+  const badges = copy.awards.items.map((badge, index) => ({ ...badge, ...badgeStyles[index] }))
   const viewportRef = useRef(null)
   const pausedRef = useRef(false)
   const dragRef = useRef({ active: false, startX: 0, startScroll: 0, pointerId: null })
@@ -174,13 +141,13 @@ export default function Auszeichnungen() {
     >
       <div className="container-main flex flex-col gap-5 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="kicker">Fiktive Auszeichnungen</p>
+          <p className="kicker">{copy.awards.kicker}</p>
           <h2 id="auszeichnungen-title" className="mt-3 font-display text-[clamp(1.8rem,4vw,2.8rem)] font-semibold leading-[1.02]">
-            Was uns auszeichnet.
+            {copy.awards.title}
           </h2>
         </div>
         <p className="max-w-[34ch] text-xs leading-relaxed text-ink/50">
-          Beispielhafte Siegel für dieses Portfolio-Projekt. Keine echten Awards.
+          {copy.awards.note}
         </p>
       </div>
 
@@ -189,7 +156,7 @@ export default function Auszeichnungen() {
         className="rewards-marquee mt-8"
         role="region"
         tabIndex={0}
-        aria-label="Fiktive Auszeichnungen – seitlich scrollbar"
+        aria-label={copy.awards.region}
         onPointerEnter={pause}
         onPointerLeave={onPointerLeave}
         onFocus={pause}
