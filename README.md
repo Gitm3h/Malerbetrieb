@@ -3,7 +3,6 @@
 A fictional Hamburg painting company, built as a responsive frontend and UI-design portfolio project.
 
 **Live demo:** [my-nuzl291ofg.brewpage.app](https://my-nuzl291ofg.brewpage.app/)  
-**GitHub Pages:** [gitm3h.github.io/Malerbetrieb](https://gitm3h.github.io/Malerbetrieb/)  
 **Repository:** [github.com/Gitm3h/Malerbetrieb](https://github.com/Gitm3h/Malerbetrieb)
 
 ![Malerbetrieb Schmidt desktop preview](docs/portfolio-preview.webp)
