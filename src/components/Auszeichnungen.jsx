@@ -1,3 +1,5 @@
+import { useEffect, useRef } from 'react'
+
 const badges = [
   {
     overline: 'Seit 1998',
@@ -75,6 +77,95 @@ function Badge({ badge, hidden = false }) {
 }
 
 export default function Auszeichnungen() {
+  const viewportRef = useRef(null)
+  const pausedRef = useRef(false)
+  const dragRef = useRef({ active: false, startX: 0, startScroll: 0, pointerId: null })
+
+  useEffect(() => {
+    const viewport = viewportRef.current
+    if (!viewport) return
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    const half = viewport.scrollWidth / 2
+    viewport.scrollLeft = half
+
+    let frame = 0
+    let last = performance.now()
+
+    const tick = now => {
+      const delta = Math.min(now - last, 64)
+      last = now
+
+      if (!pausedRef.current && !dragRef.current.active) {
+        viewport.scrollLeft -= delta * 0.045
+
+        if (viewport.scrollLeft <= 0) {
+          viewport.scrollLeft += half
+        }
+      }
+
+      frame = window.requestAnimationFrame(tick)
+    }
+
+    frame = window.requestAnimationFrame(tick)
+    return () => window.cancelAnimationFrame(frame)
+  }, [])
+
+  const pause = () => { pausedRef.current = true }
+  const resume = () => { pausedRef.current = false }
+
+  const onPointerDown = event => {
+    pause()
+
+    if (event.pointerType !== 'mouse' || event.button !== 0) return
+
+    const viewport = viewportRef.current
+    if (!viewport) return
+
+    dragRef.current = {
+      active: true,
+      startX: event.clientX,
+      startScroll: viewport.scrollLeft,
+      pointerId: event.pointerId,
+    }
+    viewport.setPointerCapture?.(event.pointerId)
+  }
+
+  const onPointerMove = event => {
+    const drag = dragRef.current
+    const viewport = viewportRef.current
+    if (!drag.active || !viewport || event.pointerId !== drag.pointerId) return
+
+    event.preventDefault()
+    viewport.scrollLeft = drag.startScroll - (event.clientX - drag.startX)
+  }
+
+  const clearPointer = event => {
+    const drag = dragRef.current
+    const viewport = viewportRef.current
+
+    if (drag.active && viewport) {
+      viewport.releasePointerCapture?.(event.pointerId)
+    }
+
+    dragRef.current = { active: false, startX: 0, startScroll: 0, pointerId: null }
+  }
+
+  const onPointerUp = event => {
+    clearPointer(event)
+    pausedRef.current = event.pointerType === 'mouse'
+  }
+
+  const onPointerCancel = event => {
+    clearPointer(event)
+    resume()
+  }
+
+  const onPointerLeave = event => {
+    clearPointer(event)
+    resume()
+  }
+
   return (
     <section
       id="auszeichnungen"
@@ -93,7 +184,21 @@ export default function Auszeichnungen() {
         </p>
       </div>
 
-      <div className="rewards-marquee mt-8" role="region" aria-label="Fiktive Auszeichnungen">
+      <div
+        ref={viewportRef}
+        className="rewards-marquee mt-8"
+        role="region"
+        tabIndex={0}
+        aria-label="Fiktive Auszeichnungen – seitlich scrollbar"
+        onPointerEnter={pause}
+        onPointerLeave={onPointerLeave}
+        onFocus={pause}
+        onBlur={resume}
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerCancel={onPointerCancel}
+      >
         <div className="rewards-track">
           <div className="rewards-group">
             {badges.map(badge => (

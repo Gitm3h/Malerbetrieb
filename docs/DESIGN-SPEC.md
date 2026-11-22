@@ -261,7 +261,8 @@ Featured sample board:
 - Chalk-2 ground, directly under Kundenstimmen. Kicker “Fiktive Auszeichnungen”. H2 “Was uns auszeichnet.” Note: “Beispielhafte Siegel für dieses Portfolio-Projekt. Keine echten Awards.”
 - Six badge cards: Meisterbetrieb, 5,0 Sterne, Top 2025, 12 Fachkräfte, 1.000+, Low-VOC. Each has a circular seal, overline, title, and subline.
 - Duplicated badge set loops continuously **rightward**, opposite the reviews. Hover pauses. Edge mask softens entry/exit.
-- Reduced motion: animation off, duplicate hidden, manual horizontal scroll.
+- Horizontal scroll is native: touch swipe, trackpad, keyboard arrows when focused, and mouse drag. The scrollbar is hidden.
+- Reduced motion: auto-scroll off, duplicate hidden, manual horizontal scroll.
 - Badges are fictional and are also listed as invented in the Projekt transparency panel.
 
 ### 3.8 Projekt

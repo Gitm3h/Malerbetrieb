@@ -61,7 +61,7 @@ The AI did not invent a real client, a real project, or real testimonials. The s
 - Accessible before/after slider with keyboard, pointer, and touch support.
 - Service cards linked to a preselected enquiry.
 - Horizontally scrollable review strip with hidden scrollbar and auto-scroll.
-- Fictional awards strip that drifts opposite the reviews, with hover pause.
+- Fictional awards strip that drifts opposite the reviews, with native horizontal scroll and hover pause.
 - Link/scroll speed-streak effect, disabled for reduced motion.
 - Mobile navigation sheet with focus trap.
 - Impressum/Datenschutz modal with focus trap.

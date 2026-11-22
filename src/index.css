@@ -549,31 +549,42 @@
 
 /* ── Awards strip ──────────────────────────────────────────── */
 .rewards-marquee {
-  overflow: hidden;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  user-select: none;
   -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
   mask-image: linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+}
+
+.rewards-marquee:active {
+  cursor: grabbing;
+}
+
+.rewards-marquee:focus-visible {
+  outline: 2px solid var(--color-ultramarine);
+  outline-offset: 4px;
+}
+
+.rewards-marquee::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 .rewards-track {
   display: flex;
   width: max-content;
-  animation: rewardsDrift 52s linear infinite;
-  will-change: transform;
 }
 
 .rewards-group {
   display: flex;
   gap: 1rem;
   padding-right: 1rem;
-}
-
-.rewards-marquee:hover .rewards-track {
-  animation-play-state: paused;
-}
-
-@keyframes rewardsDrift {
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
 }
 
 /* ── Link whoosh ───────────────────────────────────────────── */
