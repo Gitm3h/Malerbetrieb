@@ -189,7 +189,7 @@ What changed after review:
 - Transparent over hero; after 40px scroll, chalk glass with `backdrop-filter: blur(14px) saturate(150%)`, hairline `rgba(8,37,39,.14)`.
 - Left: three 6×18px vertical swatches (ultramarine, saffron, verdigris) + wordmark.
 - Desktop links: Leistungen, Referenzen, Über uns, Projekt; 15px Karla 500; hover underline drawn from left, 180ms.
-- Language switch: compact DE/EN bordered control before the CTA. Active language is filled ink; inactive is a link. Repeated in the mobile sheet and footer.
+- Language switch: compact DE/EN bordered control after the CTA, anchored to the nav’s right edge. Its position does not change between German and English. Active language is filled ink; inactive is a link. Repeated in the mobile sheet and footer, also right-anchored.
 - CTA: “Anfragen”, saffron background, ink text, 10px radius (the only rounded button), no shadow. Same target as the old Kontakt link; Kontakt is not duplicated in the nav.
 - Mobile: full-screen sheet from the top, chalk ground, Fraunces links at `clamp(2rem, 9vw, 3rem)`, contact CTA at the bottom. Body scroll locked, Escape closes, focus returns to the trigger, focus trapped inside the sheet.
 

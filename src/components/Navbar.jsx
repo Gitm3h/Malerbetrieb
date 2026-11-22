@@ -104,10 +104,10 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <LanguageSwitch tone={scrolled ? 'ink' : 'chalk'} />
             <a href="#kontakt" className="btn-primary ml-1 !min-h-[42px] !px-3 !py-2 !text-xs xl:!px-4 xl:!text-sm">
               {copy.nav.cta}
             </a>
+            <LanguageSwitch tone={scrolled ? 'ink' : 'chalk'} />
           </nav>
 
           <button

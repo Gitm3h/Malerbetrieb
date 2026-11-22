@@ -68,7 +68,6 @@ export default function Footer({ onImpressum }) {
         <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-chalk/10 pt-6 text-xs sm:flex-row sm:items-center">
           <p>{copy.footer.rights}</p>
           <div className="flex flex-wrap items-center gap-4">
-            <LanguageSwitch tone="chalk" />
             <button
               type="button"
               onClick={onImpressum}
@@ -76,6 +75,7 @@ export default function Footer({ onImpressum }) {
             >
               {copy.footer.legal}
             </button>
+            <LanguageSwitch tone="chalk" />
           </div>
         </div>
       </div>
