@@ -130,7 +130,14 @@ export default function Hero() {
                       setHovered(pigmentIndex)
                     }
                   }}
-                  onPointerLeave={() => setHovered(null)}
+                  onPointerLeave={event => {
+                    if (event.pointerType === 'mouse' || event.pointerType === 'pen') {
+                      setHovered(null)
+                    }
+                  }}
+                  onClick={() => {
+                    setHovered(current => (current === pigmentIndex ? null : pigmentIndex))
+                  }}
                 >
                   <span className="paint-name">{copy.hero.paintNames[pigmentIndex]}</span>
                   <span className="paint-hex">{pigment.hex}</span>

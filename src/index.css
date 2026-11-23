@@ -361,6 +361,7 @@
   box-shadow: 0 24px 50px rgba(0, 0, 0, 0.28);
   border: 1px solid rgba(8, 37, 39, 0.18);
   cursor: pointer;
+  touch-action: manipulation;
   transform:
     rotate(calc((var(--deck-i) - 3) * var(--fan-step)));
   transform-origin: 50% 112%;
