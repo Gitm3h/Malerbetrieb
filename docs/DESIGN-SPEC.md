@@ -538,7 +538,7 @@ German and English. No untranslated UI microcopy. German uses “Sie”, not “
 5. **References**: featured slider, tabs, keyboard, hint, caption, AI-illustration label.
 6. **Contact, nav, footer, modal**: forms, validation, focus management, mobile sheet, single Anfragen nav link.
 7. **Reviews + motion**: Kundenstimmen strip, native scroll, hover/focus pause, deck shuffle, link/scroll whoosh.
-8. **QA + deploy**: responsive, keyboard, reduced motion, contrast, lint/build, BrewPage update.
+8. **QA + deploy**: responsive, keyboard, reduced motion, contrast, lint/build, GitHub Pages update.
 
 Definition of done: all acceptance criteria in sections 9–10 pass; the wave moves in three blended blue-green layers; the gallery contains three matched, locally hosted, honestly labelled AI before/after pairs; the review strip scrolls manually and pauses on hover/focus; no placeholder stock URLs remain.
 
@@ -546,8 +546,8 @@ Definition of done: all acceptance criteria in sections 9–10 pass; the wave mo
 
 ## 12. Open items
 
-- BrewPage publication is live but still unclaimed by the new account. Current expiry: 2026-12-22. Claim it to keep it long-term.
-- GitHub Pages source is set by the publish workflow to `gh-pages` / root. If the token lacks permission, set it once in repository settings.
+- GitHub Pages is configured permanently at `gh-pages` / root. The publish workflow updates it on every push to `main`.
+- BrewPage remains a temporary, unlisted backup; do not use it as the main portfolio link. Current expiry: 2026-12-22.
 - Replace placeholder address, phone, e-mail, and USt-ID before launch.
 - Connect the contact form to a real endpoint and add spam protection.
 - Review the Datenschutz text with legal counsel.
@@ -556,19 +556,22 @@ Definition of done: all acceptance criteria in sections 9–10 pass; the wave mo
 
 ## 13. Current deployment
 
-- Host: BrewPage, static ZIP upload, unlisted subdomain.
-- Public URL: `https://my-nuzl291ofg.brewpage.app/`.
-- Build: `npm run build`; upload contents of `dist/` as ZIP.
-- Update endpoint: `PUT https://brewpage.app/api/sites/my/YzBslUq60a` with `X-Owner-Token`.
-- Owner token, manage URL, expiry, and file count live in `deploy-info.md`; keep that file private.
-- No backend. The form remains client-only and simulates success.
+### GitHub Pages (primary)
 
-### GitHub mirror
-
-- Repository: `https://github.com/Gitm3h/Malerbetrieb`.
+- Permanent public URL: `https://gitm3h.github.io/Malerbetrieb/`.
+- English URL: `https://gitm3h.github.io/Malerbetrieb/en/`.
+- Host: GitHub Pages, public repository, built output on `gh-pages`.
+- Pages source: `gh-pages` / root, configured 2026-11-26.
 - Workflow `.github/workflows/publish.yml` runs on every push to `main`.
 - It builds with `npm ci && npm run build` and force-pushes the output to an orphan `gh-pages` branch.
-- It then attempts to set GitHub Pages source to `gh-pages` / root via `PUT /repos/{owner}/{repo}/pages` and requests a new Pages build via `POST /repos/{owner}/{repo}/pages/builds`. If the token cannot change settings, the step warns and the manual setting remains.
+- It requests a new Pages build and attempts to keep the source at `gh-pages` / root.
 - It does not push local changes. A local commit must be pushed to `main` first.
-- `vite.config.js` uses `base: './'` so both BrewPage root and the GitHub Pages project subpath load assets.
-- GitHub Pages still needs the one-time `gh-pages` / root source switch if the workflow's settings call is rejected. Expected URL: `https://gitm3h.github.io/Malerbetrieb/`.
+- `vite.config.js` uses `base: './'` so both the domain root and the GitHub Pages project subpath load assets.
+
+### BrewPage (temporary backup)
+
+- Host: BrewPage, static ZIP upload, unlisted subdomain.
+- Temporary URL: `https://my-nuzl291ofg.brewpage.app/`.
+- Build: `npm run build`; upload contents of `dist/` as ZIP.
+- Owner token, manage URL, expiry, and file count live in `deploy-info.md`; keep that file private.
+- No backend. The form remains client-only and simulates success.

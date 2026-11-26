@@ -2,8 +2,8 @@
 
 A fictional Hamburg painting company, built as a responsive frontend and UI-design portfolio project.
 
-**Live demo:** [my-nuzl291ofg.brewpage.app](https://my-nuzl291ofg.brewpage.app/)  
-**English demo:** [my-nuzl291ofg.brewpage.app/en/](https://my-nuzl291ofg.brewpage.app/en/)  
+**Permanent demo:** [gitm3h.github.io/Malerbetrieb](https://gitm3h.github.io/Malerbetrieb/)  
+**English demo:** [gitm3h.github.io/Malerbetrieb/en](https://gitm3h.github.io/Malerbetrieb/en/)  
 **Repository:** [github.com/Gitm3h/Malerbetrieb](https://github.com/Gitm3h/Malerbetrieb)  
 **Design spec:** [docs/DESIGN-SPEC.md](docs/DESIGN-SPEC.md)
 
@@ -95,8 +95,8 @@ npm run preview
 
 The site is currently published two ways:
 
-- **BrewPage:** static ZIP upload, unlisted.
-- **GitHub Pages:** built output on the `gh-pages` branch.
+- **GitHub Pages:** permanent public demo, built output on the `gh-pages` branch. Source is set to `gh-pages` / root.
+- **BrewPage:** temporary ZIP upload, unlisted; useful only as a backup preview.
 
 Every push to `main` runs `.github/workflows/publish.yml`:
 
@@ -107,7 +107,7 @@ Every push to `main` runs `.github/workflows/publish.yml`:
 
 The workflow cannot push local changes that were never committed. A change must reach `main` first.
 
-If the Pages source is not set automatically, enable it once in **Settings → Pages → Deploy from a branch → `gh-pages` / root**.
+If the Pages source is not set automatically, enable it once in **Settings → Pages → Deploy from a branch → `gh-pages` / root**. This repository is already configured.
 
 ## Credits
 
